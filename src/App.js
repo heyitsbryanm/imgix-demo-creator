@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './css/styles.css'
 
 import ImageCard from './modules/ImageCard'
-
+import Group from './modules/Group'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,7 +11,10 @@ export default class App extends React.Component {
     this.state = {
       groups: [{
         groupOptions: {
-
+          title: "This is the title of a group.",
+          description: "This is the description of the group.",
+          editingMode: true,
+          parameterSet: undefined
         },
         images: [{
           url: "http://bryansandbox.imgix.net/_static/images/img02.jpg"
@@ -28,6 +31,21 @@ export default class App extends React.Component {
     })
   }
 
+  _addGroup = () => {
+    let groupIndex = this.state.groups.length - 1;
+    let groups = [...this.state.groups];
+    let groupObject = Object.assign({},this.state.groups[groupIndex]);
+    
+    groups.push(groupObject);
+    this.setState({groups})
+  }
+
+  _renderGroups = () => {
+    return this.state.groups.map(mapx => {
+      return <Group group={mapx} key={mapx.title}/>
+    })
+  }
+
   render() {
     return (
       <div className='App'>
@@ -37,47 +55,13 @@ export default class App extends React.Component {
         </header>
         <section className='container'>
 
-          <div>
-            This div should contain the container's options. Such as:
-            <ul>
-              <li>Apply parameter set</li>
-              <li>Use `srcsets`</li>
-              <ul>
-                <li>Or, to use individual parameters per image</li>
-                <li>Option to apply custom code to create parameters. Like, a script</li>
-              </ul>
-              <li>Use `srcsets`</li>
-              <ul>
-                <li>Option to use a custom sizes attribute for a group of images</li>
-              </ul>
-              <li>Option to make set images to “fill” container or to </li>
-              <li>Option to apply all changes and reload images</li>
-            </ul>
+          {this._renderGroups()}
+          <div className="group">
+            <button className="addGroup" id="addGroup" onClick={()=>{
+              this._addGroup()
+            }}>Add group</button>
           </div>
 
-          {/* What design options should users have over groups?
-
-            - Option to edit a group’s name
-            - Option to add a description to a group
-            - Option to add a group above
-            - Option to add a group below
-            - Option to make a group full width
-            - Option to make a group half size
-            - Option to delete a group
-            - Option to duplicate a group
-            - Option to restrict image size
-                - Option to not restrict image size
-            - Option to re-organize a group */}
-
-
-          <div className="images-container">
-
-            <ImageCard
-            images={this.state.groups[0].images}/>
-            <div class="card">
-              <button class="addImage" id="addImage">Add image</button>
-            </div>
-          </div>
         </section>
       </div>
     );

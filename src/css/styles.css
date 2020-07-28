@@ -171,18 +171,22 @@ input.landing__form__group__input.input--landing {
   position: relative;
 }
 
-input[type="url"],
-input[type="tel"],
-input[type="email"],
-input[type="search"],
-input[type="number"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="time"],
-input[type="week"],
-input[type="month"],
-input[type="text"] {
+.group input[type="text"] {
+  display: block;
+}
+
+input[type="url"].large,
+input[type="tel"].large,
+input[type="email"].large,
+input[type="search"].large,
+input[type="number"].large,
+input[type="datetime"].large,
+input[type="datetime-l.largeocal"],
+input[type="date"].large,
+input[type="time"].large,
+input[type="week"].large,
+input[type="month"].large,
+input[type="text"].large {
   background: #ffffff;
   border: 2px solid #eef0f2;
   box-sizing: border-box;
@@ -377,3 +381,26 @@ section {
 label {
   font-size: 1.2em;
 }
+
+/*========== group ==========*/
+
+.container {
+    display: grid;
+    grid-template: auto/repeat(2,1fr);
+    grid-gap: 10px 20px;
+}
+
+/*========== imageCard ==========*/
+
+.images-container {
+  display: grid;
+  grid-template: auto / repeat(4, 1fr);
+  grid-gap: 10px 20px;
+}
+
+.images-container,
+.images-container img,
+.images-container .card {
+  width: 100%;
+}
+
