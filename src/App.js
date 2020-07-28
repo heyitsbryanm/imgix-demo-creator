@@ -14,10 +14,14 @@ export default class App extends React.Component {
           title: "This is the title of a group.",
           description: "This is the description of the group.",
           editingMode: true,
-          parameterSet: undefined
+          imageOptions: {
+            parameterSet: false,
+            parameterSetValue: ''
+          }
         },
         images: [{
-          url: "http://bryansandbox.imgix.net/_static/images/img02.jpg"
+          url: "http://bryansandbox.imgix.net/_static/images/img02.jpg",
+          baseUrl: "http://bryansandbox.imgix.net/_static/images/img02.jpg",
         }]
       }]
     }
