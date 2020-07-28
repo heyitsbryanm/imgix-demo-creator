@@ -1,0 +1,379 @@
+/*-------- ez/easy layout styles --------*/
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.zIndexBump {
+  z-index: 5;
+}
+
+.inline {
+  display: inline;
+}
+
+.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 50px;
+}
+
+.center,
+.centered {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: right;
+}
+
+.disableMargin {
+  margin: 0 auto 0 auto;
+}
+
+.disablePadding {
+  padding: 0;
+}
+
+.danger.button {
+  background: #ff4242;
+}
+
+.noUnderline {
+  text-decoration: none;
+}
+
+/*------ easy color styles ------*/
+
+.white {
+  color: white;
+}
+
+.black,
+h1.black {
+  color: black;
+}
+
+.whiteBackground-30 {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/*------ text ------*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #354b5a;
+  font-family: "Roboto Slab", sans-serif;
+}
+
+p {
+  color: #6686a0;
+}
+
+.subtext {
+  margin-top: 10px;
+}
+
+.subtext p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  margin-bottom: initial;
+}
+
+p.wrap {
+  white-space: initial;
+  overflow: initial;
+  text-overflow: initial;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+code.parameters.inline {
+  display: inherit;
+  text-overflow: ellipsis;
+  white-space: inherit;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 60px;
+  line-height: 72px;
+  margin-bottom: 42px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.white {
+  color: white;
+}
+
+.lightBlue {
+  color: #00adea;
+}
+
+.logoPlaceholder {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+.subtitle {
+  color: #6686a0;
+  font-size: 30px;
+  line-height: 40px;
+  margin-bottom: 66px;
+  width: 530px;
+}
+
+/*========== button styles ==========*/
+
+.landing__form__container {
+  margin-top: -35px;
+  margin-bottom: 35px;
+  z-index: 5;
+}
+
+input.landing__form__group__input.input--landing {
+  font-size: 39px;
+  line-height: 40px;
+  padding: 40px;
+}
+
+.button--inline {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: inset 0 -4px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.landing__form__group {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+input[type="url"],
+input[type="tel"],
+input[type="email"],
+input[type="search"],
+input[type="number"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="time"],
+input[type="week"],
+input[type="month"],
+input[type="text"] {
+  background: #ffffff;
+  border: 2px solid #eef0f2;
+  box-sizing: border-box;
+  color: #6686a0;
+  display: block;
+  font-size: 24px;
+  padding: 16px;
+  padding-top: 22px;
+  padding-bottom: 18px;
+}
+
+input[type="url"]:not(placeholder-shown),
+input[type="tel"]:not(placeholder-shown),
+input[type="email"]:not(placeholder-shown),
+input[type="search"]:not(placeholder-shown),
+input[type="number"]:not(placeholder-shown),
+input[type="datetime"]:not(placeholder-shown),
+input[type="datetime-local"]:not(placeholder-shown),
+input[type="date"]:not(placeholder-shown),
+input[type="time"]:not(placeholder-shown),
+input[type="week"]:not(placeholder-shown),
+input[type="month"]:not(placeholder-shown),
+input[type="text"]:not(placeholder-shown) {
+  border-color: #00c0fa !important;
+}
+
+button.button,
+.button,
+.options_form button {
+  background: #00c0fa;
+  background-color: #00c0fa;
+  border: 0;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  text-align: center;
+  transition: background 0.4s;
+}
+
+.options_form button {
+  font-size: 18;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+button:disabled {
+  background: #61daff;
+}
+
+.button:hover {
+  background: #2ecfff;
+}
+
+.button--red {
+  background: #f8510f;
+}
+
+.button--red:hover {
+  background: #f97541;
+}
+
+.button--inline {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: inset 0 -4px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.button--landing {
+  font-size: 30px;
+  line-height: 39px;
+  padding-top: 30px;
+  padding-bottom: 27px;
+}
+
+input[type="url"].input--landing {
+  font-size: 30px;
+  line-height: 39px;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 27px;
+  padding-bottom: 26px;
+}
+
+.checkbox {
+  text-align: right;
+}
+
+/*========== header ==========*/
+
+.page-header {
+  background: #22303a;
+  box-sizing: border-box;
+  padding: 60px 0 60px 0;
+}
+
+.logo__item {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.logo__image__img {
+  margin-right: 4px;
+  height: 56px;
+  width: auto;
+}
+
+.logo__powered {
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.logo__powered__item {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.logo__powered__logo {
+  box-sizing: border-box;
+  height: 24px;
+}
+
+.logo__powered__logo__img {
+  display: inline-block;
+  height: 24px;
+  padding-left: 4px;
+  width: auto;
+  vertical-align: bottom;
+}
+
+.fold {
+  background: #22303a;
+}
+
+/*========== page, rows & column css ==========*/
+
+h1.section_title {
+  font-family: "Roboto Slab", sans-serif;
+}
+
+.section_divider {
+  background: #00c0fa;
+  margin-bottom: 13px;
+  height: 6px;
+  width: 94px;
+}
+
+.page-width .page-width-inner {
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+body.new-page .page-header .page-width-inner {
+  padding-top: 44px;
+  padding-bottom: 43px;
+}
+
+section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/*========== form settings ==========*/
+
+.options_form,
+.options_form .grid-x {
+  width: 100%;
+}
+
+.optionsContainer {
+  margin-bottom: 30px;
+  border-top: 8px solid #d0d7dd;
+  border-top-width: 8px;
+  border-top-style: solid;
+  border-top-color: rgb(208, 215, 221);
+  padding-top: 24px;
+}
+
+.options_header {
+  font-weight: 600;
+}
+
+label {
+  font-size: 1.2em;
+}
