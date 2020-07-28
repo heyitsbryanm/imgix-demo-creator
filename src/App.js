@@ -23,14 +23,6 @@ export default class App extends React.Component {
     }
   };
 
-  _addImage = () => {
-    let blankImage = this.state.images[0];
-    let groups = this.state.groups[0].images.push(blankImage);
-    this.setState({
-      groups: groups
-    })
-  }
-
   _addGroup = () => {
     let groupIndex = this.state.groups.length - 1;
     let groups = [...this.state.groups];
@@ -42,7 +34,9 @@ export default class App extends React.Component {
 
   _renderGroups = () => {
     return this.state.groups.map(mapx => {
-      return <Group group={mapx} key={mapx.title}/>
+      return <Group group={mapx} key={mapx.title}
+        testing={this.testing}
+      />
     })
   }
 

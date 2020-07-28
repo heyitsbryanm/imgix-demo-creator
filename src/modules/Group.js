@@ -4,9 +4,33 @@ import ImageCard from './ImageCard';
 
 export default class Group extends PureComponent {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            images: this.props.group.images
+        }
     }
 
+    _addImageCard = (array) => {
+        array.map(mapx => {
+            let index = array.length - 1;
+            let arrayClone = [...array];
+            let arrayObject = Object.assign({}, array[index]);
+
+            console.log('array is: ',array)
+            arrayClone.push(arrayObject);
+            console.log(this.state)
+            this.setState({
+                images: arrayClone
+            })
+        })
+    };
+
+    _renderImageCard = () => {
+        return this.state.images.map(mapx => {
+            return <ImageCard image={mapx} key={mapx.title}
+            />
+        })
+    }
 
     render() {
         return (
@@ -50,11 +74,11 @@ export default class Group extends PureComponent {
 
 
                 <div className="images-container">
-
-                    {/* <ImageCard
-                        images={this.props.group.images} /> */}
+                {this._renderImageCard()}
                     <div className="card">
-                        <button className="addImage" id="addImage">Add image</button>
+                        <button className="addImage" id="addImage" onClick={(e) => {
+                            this._addImageCard(this.state.images)
+                        }}>Add image</button>
                     </div>
                 </div>
             </div>
