@@ -58,21 +58,6 @@ export default class Group extends PureComponent {
 
                 </div>
 
-                {/* What design options should users have over groups?
-
-          - Option to edit a group’s name
-          - Option to add a description to a group
-          - Option to add a group above
-          - Option to add a group below
-          - Option to make a group full width
-          - Option to make a group half size
-          - Option to delete a group
-          - Option to duplicate a group
-          - Option to restrict image size
-              - Option to not restrict image size
-          - Option to re-organize a group */}
-
-
                 <div className="images-container">
                 {this._renderImageCard()}
                     <div className="card">
