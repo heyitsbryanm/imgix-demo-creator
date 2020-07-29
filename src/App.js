@@ -14,7 +14,6 @@ export default class App extends React.Component {
         groupOptions: {
           title: "This is the title of a group.",
           description: "This is the description of the group.",
-          editingMode: true,
           imageOptions: {
             parameterSet: false,
             parameterSetValue: ''
@@ -48,7 +47,6 @@ export default class App extends React.Component {
 
   _renderGroups = () => {
     return Object.entries(this.state.groups).map(mapx => {
-      console.log('mapx[0] is: ', mapx[0]);
       return <Group groupIndex={mapx[0]} group={mapx[1]} key={mapx[1].title}
         lockedEditing={this.state.lockedEditing} _modifyState={this._modifyState}
       />

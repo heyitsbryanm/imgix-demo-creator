@@ -10,15 +10,21 @@ export default class ImageCard extends PureComponent {
         // inherited props:
         // this.props.imageOptions
         // this.props.lockedEditing
+        // this.props._modifyState()
+        // this.props.group
+        // this.props.groupIndex
+        // this.props.imageIndex
     };
 
     _renderImage = () => {
         if (this.props.imageOptions.parameterSet === false) {
-            return this.state.url
+            return this.props.image.url
         } else if (this.props.imageOptions.parameterSet === true) {
-            return this.state.url.split('?')[0].split('#')[0] + '?' + this.props.imageOptions.parameterSetValue
+            return this.props.image.url.split('?')[0].split('#')[0] + '?' + this.props.imageOptions.parameterSetValue
         }
     }
+
+
 
     render() {
         return (
@@ -28,11 +34,15 @@ export default class ImageCard extends PureComponent {
                     this.setState({ inputText: e.target.value })
                 }}></input>
                 <button type="submit" hidden={this.props.lockedEditing} onClick={e => {
-                    this.setState({ url: this.state.inputText })
+                    this.setState({ url: this.state.inputText },()=>{
+                        let groupClone = Object.assign({},this.props.group);
+                        groupClone.images[this.props.imageIndex].url = this.state.url;
+                        this.props._modifyState(this.props.groupIndex,groupClone)
+                    })
                 }}>Reload image</button>
                 <div className="center subtext metadata">
                     <p>
-                        <a href={this.state.url} target="_blank">Open in new tab</a>
+                        <a href={this.props.image.url} target="_blank">Open in new tab</a>
                     </p>
                     <p>
                         <a href={`https://sandbox.imgix.com/view?url=${encodeURIComponent(this._renderImage())}`} target="_blank">Open in sandbox</a>

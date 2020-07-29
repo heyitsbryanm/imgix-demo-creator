@@ -419,6 +419,10 @@ input.demoElement, textarea.demoElement {
   overflow-wrap: break-word;
 }
 
+input.editableField, textarea.editableField {
+  display: block;
+}
+
 /*========== groups ==========*/
 
 .group {
