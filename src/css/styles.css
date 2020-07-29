@@ -111,6 +111,7 @@ code.parameters.inline {
   text-overflow: ellipsis;
   white-space: inherit;
   overflow: hidden;
+  max-width: 50px
 }
 
 h1 {
@@ -416,4 +417,16 @@ input.demoElement, textarea.demoElement {
   cursor: text;
   width: auto;
   overflow-wrap: break-word;
+}
+
+/*========== groups ==========*/
+
+.group {
+  width: 100%
+}
+
+.images-container {
+  display: grid;
+  grid-template: auto/repeat(4,25%);
+  grid-gap: 10px 20px;
 }
