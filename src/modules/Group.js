@@ -96,11 +96,11 @@ export default class Group extends PureComponent {
                             <h3>Bulk parameter editing</h3>
                             <form>
                                 <label htmlFor="groupParametersValue">Apply parameter set here</label>
-                                <input type="text" id="groupParametersValue" value={this.props.group.groupOptions.parameterSetValue}
+                                <input type="text" id="groupParametersValue" value={this.state.imageOptions.parameterSetValue}
                                     onChange={e => {
                                         this.setState({
                                             imageOptions: {
-                                                parameterSet: this.props.group.groupOptions.parameterSet,
+                                                parameterSet: this.props.group.groupOptions.imageOptions.parameterSet,
                                                 parameterSetValue: e.target.value
                                             }
                                         })
@@ -109,12 +109,18 @@ export default class Group extends PureComponent {
                                 <button type="submit"
                                     onClick={e => {
                                         e.preventDefault();
-                                        let parameterSetValue = this.props.group.groupOptions.parameterSetValue.replace('?', '').trim()
+                                        let parameterSetValue = this.state.imageOptions.parameterSetValue.replace('?', '').trim();
+
                                         this.setState({
                                             imageOptions: {
                                                 parameterSetValue: parameterSetValue,
-                                                parameterSet: true
+                                                parameterSet: this.props.group.groupOptions.imageOptions.parameterSet
                                             }
+                                        }, () => {
+                                            let groupClone = Object.assign({}, this.props.group);
+                                            groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
+                                            groupClone.groupOptions.imageOptions.parameterSet = true;
+                                            this.props._modifyState(this.props.groupIndex, groupClone);
                                         })
 
                                     }}
@@ -122,11 +128,17 @@ export default class Group extends PureComponent {
                                 <button type="submit"
                                     onClick={e => {
                                         e.preventDefault();
+                                        let parameterSetValue = this.state.imageOptions.parameterSetValue.replace('?', '').trim();
                                         this.setState({
                                             imageOptions: {
-                                                parameterSetValue: this.props.group.groupOptions.parameterSetValue,
-                                                parameterSet: false
+                                                parameterSetValue: parameterSetValue,
+                                                parameterSet: this.props.group.groupOptions.imageOptions.parameterSet
                                             }
+                                        }, () => {
+                                            let groupClone = Object.assign({}, this.props.group);
+                                            groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
+                                            groupClone.groupOptions.imageOptions.parameterSet = false;
+                                            this.props._modifyState(this.props.groupIndex, groupClone);
                                         })
                                     }}
                                 >Unset group parameters</button>
