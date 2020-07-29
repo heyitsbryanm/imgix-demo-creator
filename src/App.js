@@ -11,6 +11,8 @@ export default class App extends React.Component {
     this.state = {
       lockedEditing: false,
       sharedUrl: '',
+      title: 'imgix demo creator',
+      description: 'Welcome to the imgix demo creator. You can use this tool to create visual comparisons between images, separated into groups.',
       groups: [{
         groupOptions: {
           title: "This is the title of a group.",
@@ -56,7 +58,7 @@ export default class App extends React.Component {
 
   _sharePreview = () => {
     let sharedUrl = window.location.host + '?load=' + btoa(JSON.stringify(this.state));
-    this.setState({ sharedUrl })
+    this.setState({ sharedUrl });
   }
 
   componentDidMount() {
@@ -64,30 +66,50 @@ export default class App extends React.Component {
     let param = window.location.search.replace('?', '');
     if (param.length > 0 && param.toLowerCase().indexOf('load=') > -1) {
       param = param.split('&').filter(x => x.includes('load'))[0].split('=')[1];
-      console.log('JSON.parse(atob(param)) is: ',JSON.parse(atob(param)))
+      console.log('JSON.parse(atob(param)) is: ', JSON.parse(atob(param)))
       this.setState(JSON.parse(atob(param)))
-      // console.log(JSON.parse(atob(param)))
     }
+  }
+
+  _handleTextInputChange = (stateKey, e) => {
+    this.setState({ [stateKey]: e })
   }
 
   render() {
     return (
       <div className='App'>
         <header className='header'>
-          {/* {this._loadPreview()} */}
-          <h1>imgix-demo-creator</h1>
-          <p>Hello there! This is the imgix demo creator. We're creating a skeleton of it. This paragraph is the ehro image of the file.</p>
           <div class="pageOptions">
-            <p>{this.state.sharedUrl}</p>
+            <a href={this.state.sharedUrl} target="_blank">{this.state.sharedUrl}</a>
             <button onClick={(e) => {
               e.preventDefault();
               { this._sharePreview() };
-            }}>Share preview</button>
+            }}>Generate a preview link</button>
             <input type="checkbox" id="lockedEditing" checked={this.state.lockedEditing} onClick={() => {
               this.setState({ lockedEditing: !this.state.lockedEditing })
             }} />
             <label htmlFor="lockedEditing">Lock editing?</label>
           </div>
+
+          <h1 className="mainTitle" hidden={!this.state.lockedEditing}>{this.state.title}</h1>
+          <h1 hidden={this.state.lockedEditing}>Title</h1>
+          <textarea hidden={this.state.lockedEditing} class="h1 editableField title" value={this.state.title}
+            onChange={(e) => {
+              this._handleTextInputChange('title', e.target.value)
+            }}
+            onBlur={(e) => {
+              this.setState({ title: e.target.value });
+            }} />
+
+          <p className="mainDescription" hidden={!this.state.lockedEditing}>{this.state.description}</p>
+          <p hidden={this.state.lockedEditing}>Title</p>
+          <textarea hidden={this.state.lockedEditing} class="p editableField description" value={this.state.description}
+            onChange={(e) => {
+              this._handleTextInputChange('description', e.target.value)
+            }}
+            onBlur={(e) => {
+              this.setState({ description: e.target.value });
+            }} />
         </header>
         <section className='container'>
 
