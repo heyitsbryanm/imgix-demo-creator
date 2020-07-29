@@ -11,20 +11,32 @@ export default class Group extends PureComponent {
         }
 
         // inherited props
+        // this.props.group
         // this.props.lockedEditing
+        // this.props._modifyGroup()
+        // this.props.groupIndex
     }
 
-    _addImageCard = (array) => {
+    _addImageCard = () => {
+        let array = this.state.images;
+
+        let counter = 0;
         array.map(mapx => {
             let index = array.length - 1;
             let arrayClone = [...array];
             let arrayObject = Object.assign({}, array[index]);
-
-            console.log('array is: ', array)
             arrayClone.push(arrayObject);
-            console.log(this.state)
+            console.log('arrayClone is: ',arrayClone)
+            counter+=1;
             this.setState({
                 images: arrayClone
+            },()=>{
+                if(counter === array.length) {
+                    let groupsClone = Object.assign({},this.props.group);
+                    groupsClone.images = arrayClone;
+
+                    this.props._modifyState(this.props.groupIndex,groupsClone,'group')
+                }
             })
         })
     };
@@ -96,7 +108,7 @@ export default class Group extends PureComponent {
                     {this._renderImageCard()}
                     <div className="card" hidden={this.props.lockedEditing}>
                         <button className="addImage" id="addImage" onClick={(e) => {
-                            this._addImageCard(this.state.images)
+                            this._addImageCard()
                         }}>Add image</button>
                     </div>
                 </div>

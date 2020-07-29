@@ -27,10 +27,9 @@ export default class ImageCard extends PureComponent {
                 <input type="text" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText} onChange={e => {
                     this.setState({ inputText: e.target.value })
                 }}></input>
-                <button type="submit" onClick={e => {
+                <button type="submit" hidden={this.props.lockedEditing} onClick={e => {
                     this.setState({ url: this.state.inputText })
                 }}>Reload image</button>
-                <textarea disabled={this.props.lockedEditing} className="caption demoElement" value="This is the caption for the image"/>
                 <div className="center subtext metadata">
                     <p>
                         <a href={this.state.url} target="_blank">Open in new tab</a>
@@ -40,7 +39,6 @@ export default class ImageCard extends PureComponent {
                     </p>
                     <p className="wrap">
                         <span className="bold">parameters: </span>
-                        {console.log('this._renderImage() is: ',this._renderImage())}
                         <code className="parameters inline">{this._renderImage().split('?')[1] || 'No parameters'}</code>
                     </p>
                     <br />
