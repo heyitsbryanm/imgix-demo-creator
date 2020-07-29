@@ -33,7 +33,6 @@ export default class Group extends PureComponent {
         })
     }
 
-
     render() {
         return (
 

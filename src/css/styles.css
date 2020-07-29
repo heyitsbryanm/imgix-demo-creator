@@ -175,18 +175,18 @@ input.landing__form__group__input.input--landing {
   display: block;
 }
 
-input[type="url"].large,
-input[type="tel"].large,
-input[type="email"].large,
-input[type="search"].large,
-input[type="number"].large,
-input[type="datetime"].large,
+input[type="url"].large:not(.demoElement),
+input[type="tel"].large:not(.demoElement),
+input[type="email"].large:not(.demoElement),
+input[type="search"].large:not(.demoElement),
+input[type="number"].large:not(.demoElement),
+input[type="datetime"].large:not(.demoElement),
 input[type="datetime-l.largeocal"],
-input[type="date"].large,
-input[type="time"].large,
-input[type="week"].large,
-input[type="month"].large,
-input[type="text"].large {
+input[type="date"].large:not(.demoElement),
+input[type="time"].large:not(.demoElement),
+input[type="week"].large:not(.demoElement),
+input[type="month"].large:not(.demoElement),
+input[type="text"].large:not(.demoElement) {
   background: #ffffff;
   border: 2px solid #eef0f2;
   box-sizing: border-box;
@@ -198,18 +198,18 @@ input[type="text"].large {
   padding-bottom: 18px;
 }
 
-input[type="url"]:not(placeholder-shown),
-input[type="tel"]:not(placeholder-shown),
-input[type="email"]:not(placeholder-shown),
-input[type="search"]:not(placeholder-shown),
-input[type="number"]:not(placeholder-shown),
-input[type="datetime"]:not(placeholder-shown),
-input[type="datetime-local"]:not(placeholder-shown),
-input[type="date"]:not(placeholder-shown),
-input[type="time"]:not(placeholder-shown),
-input[type="week"]:not(placeholder-shown),
-input[type="month"]:not(placeholder-shown),
-input[type="text"]:not(placeholder-shown) {
+input[type="url"]:not(placeholder-shown, .demoElement),
+input[type="tel"]:not(placeholder-shown, .demoElement),
+input[type="email"]:not(placeholder-shown, .demoElement),
+input[type="search"]:not(placeholder-shown, .demoElement),
+input[type="number"]:not(placeholder-shown, .demoElement),
+input[type="datetime"]:not(placeholder-shown, .demoElement),
+input[type="datetime-local"]:not(placeholder-shown, .demoElement),
+input[type="date"]:not(placeholder-shown, .demoElement),
+input[type="time"]:not(placeholder-shown, .demoElement),
+input[type="week"]:not(placeholder-shown, .demoElement),
+input[type="month"]:not(placeholder-shown, .demoElement),
+input[type="text"]:not(placeholder-shown, .demoElement) {
   border-color: #00c0fa !important;
 }
 
@@ -404,3 +404,16 @@ label {
   width: 100%;
 }
 
+/*========== demoElements ==========*/
+
+input.demoElement, textarea.demoElement {
+  background: initial;
+  border: initial;
+  overflow: initial;
+  text-overflow: initial;
+  white-space: normal;
+  appearance: initial;
+  cursor: text;
+  width: auto;
+  overflow-wrap: break-word;
+}
