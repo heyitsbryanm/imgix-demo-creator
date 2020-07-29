@@ -9,6 +9,9 @@ export default class Group extends PureComponent {
             images: this.props.group.images,
             imageOptions: this.props.group.groupOptions.imageOptions
         }
+
+        // inherited props
+        // this.props.lockedEditing
     }
 
     _addImageCard = (array) => {
@@ -28,7 +31,7 @@ export default class Group extends PureComponent {
 
     _renderImageCard = () => {
         return this.state.images.map(mapx => {
-            return <ImageCard image={mapx} key={mapx.title} imageOptions={this.state.imageOptions}
+            return <ImageCard image={mapx} key={mapx.title} imageOptions={this.state.imageOptions} lockedEditing={this.props.lockedEditing}
             />
         })
     }
@@ -41,7 +44,7 @@ export default class Group extends PureComponent {
                     <h2 className="groupTitle">{this.props.group.groupOptions.title}</h2>
                     <p className="description">{this.props.group.groupOptions.description}</p>
                 </div>
-                <div className="optionsContainer">
+                <div hidden={this.props.lockedEditing} className="optionsContainer">
 
                     <div>
                         This div should contain the container's options. Such as:
@@ -91,7 +94,7 @@ export default class Group extends PureComponent {
 
                 <div className="images-container">
                     {this._renderImageCard()}
-                    <div className="card">
+                    <div className="card" hidden={this.props.lockedEditing}>
                         <button className="addImage" id="addImage" onClick={(e) => {
                             this._addImageCard(this.state.images)
                         }}>Add image</button>

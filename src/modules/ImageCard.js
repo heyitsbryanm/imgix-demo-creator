@@ -5,11 +5,11 @@ export default class ImageCard extends PureComponent {
         super(props);
         this.state = {
             url: this.props.image.url,
-            inputText: this.props.image.url,
-            editMode: true
+            inputText: this.props.image.url
         }
         // inherited props:
         // this.props.imageOptions
+        // this.props.lockedEditing
     };
 
     _renderImage = () => {
@@ -24,13 +24,13 @@ export default class ImageCard extends PureComponent {
         return (
             <div class="image-card card">
                 <img alt="placeholder-alt" src={this._renderImage()} />
-                <input type="text" placeholder="Insert image URL here" value={this.state.inputText} onChange={e => {
+                <input type="text" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText} onChange={e => {
                     this.setState({ inputText: e.target.value })
                 }}></input>
                 <button type="submit" onClick={e => {
                     this.setState({ url: this.state.inputText })
                 }}>Reload image</button>
-                <textarea disabled={this.state.editMode} className="caption demoElement" value="This is the caption for the image"/>
+                <textarea disabled={this.props.lockedEditing} className="caption demoElement" value="This is the caption for the image"/>
                 <div className="center subtext metadata">
                     <p>
                         <a href={this.state.url} target="_blank">Open in new tab</a>
