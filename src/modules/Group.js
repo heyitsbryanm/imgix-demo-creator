@@ -72,9 +72,9 @@ export default class Group extends PureComponent {
                                 this.props._modifyState(this.props.groupIndex, groupClone)
                             });
                         }} />
+
                     <p hidden={!this.props.lockedEditing} className="groupDescription">{this.props.group.groupOptions.description}</p>
                     <h2 hidden={this.props.lockedEditing}>description</h2>
-
                     <input type="text" hidden={this.props.lockedEditing} class="h2 editableField description" value={this.state.description}
                         onChange={(e) => {
                             this._handleTextInputChange('Description', e.target.value)

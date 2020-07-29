@@ -172,7 +172,7 @@ input.landing__form__group__input.input--landing {
   position: relative;
 }
 
-.group input[type="text"] {
+.group input[type="text"]:not([hidden=""]) {
   display: block;
 }
 
@@ -419,7 +419,7 @@ input.demoElement, textarea.demoElement {
   overflow-wrap: break-word;
 }
 
-input.editableField, textarea.editableField {
+input.editableField:not([hidden=""]), textarea.editableField:not([hidden=""]) {
   display: block;
 }
 
