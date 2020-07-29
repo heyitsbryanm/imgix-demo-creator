@@ -10,6 +10,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       lockedEditing: false,
+      sharedUrl: '',
       groups: [{
         groupOptions: {
           title: "This is the title of a group.",
@@ -36,9 +37,9 @@ export default class App extends React.Component {
     this.setState({ groups })
   }
 
-  _modifyState = (groupIndex,array) => {
+  _modifyState = (groupIndex, array) => {
     let arrayClone = [...this.state.groups];
-    arrayClone.splice(groupIndex,1,array);
+    arrayClone.splice(groupIndex, 1, array);
     this.setState({
       groups: arrayClone
     })
@@ -53,14 +54,35 @@ export default class App extends React.Component {
     })
   }
 
+  _sharePreview = () => {
+    let sharedUrl = window.location.host + '?load=' + btoa(JSON.stringify(this.state));
+    this.setState({ sharedUrl })
+  }
+
+  componentDidMount() {
+    console.log('updated')
+    let param = window.location.search.replace('?', '');
+    if (param.length > 0 && param.toLowerCase().indexOf('load=') > -1) {
+      param = param.split('&').filter(x => x.includes('load'))[0].split('=')[1];
+      console.log('JSON.parse(atob(param)) is: ',JSON.parse(atob(param)))
+      this.setState(JSON.parse(atob(param)))
+      // console.log(JSON.parse(atob(param)))
+    }
+  }
 
   render() {
     return (
       <div className='App'>
         <header className='header'>
+          {/* {this._loadPreview()} */}
           <h1>imgix-demo-creator</h1>
           <p>Hello there! This is the imgix demo creator. We're creating a skeleton of it. This paragraph is the ehro image of the file.</p>
           <div class="pageOptions">
+            <p>{this.state.sharedUrl}</p>
+            <button onClick={(e) => {
+              e.preventDefault();
+              { this._sharePreview() };
+            }}>Share preview</button>
             <input type="checkbox" id="lockedEditing" checked={this.state.lockedEditing} onClick={() => {
               this.setState({ lockedEditing: !this.state.lockedEditing })
             }} />
