@@ -2,8 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './css/styles.css'
 
-import ImageCard from './modules/ImageCard'
-import Group from './modules/Group'
+import ImageCard from './components/ImageCard'
+import Group from './components/Group'
 
 export default class App extends React.Component {
   constructor(props) {
