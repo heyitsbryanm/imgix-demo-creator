@@ -10,42 +10,61 @@ export default class ImageCard extends PureComponent {
         // inherited props:
         // this.props.imageOptions
         // this.props.lockedEditing
-        // this.props._modifyState()
+        // this.props._modifyAppState()
         // this.props.group
         // this.props.groupIndex
         // this.props.imageIndex
     };
 
+    componentDidMount() {
+        this.setState({ inputText: this.props.image.url });
+    };
+
     _renderImage = () => {
+        let image = this.props.image.baseUrl
         if (this.props.imageOptions.parameterSet === false) {
-            return this.props.image.url
+            image = this.props.image.baseUrl + '?' + (this.props.image.imageParameters || '');
         } else if (this.props.imageOptions.parameterSet === true) {
-            return this.props.image.url.split('?')[0].split('#')[0] + '?' + this.props.imageOptions.parameterSetValue
+            image = this.props.image.baseUrl + '?' + this.props.imageOptions.parameterSetValue
         }
+
+        // custom functions
+        if (this.props.group.groupOptions.imageOptions.customFunction) {
+            image = this.props.image.baseUrl + '?' + this.props.customCodeParams
+        }
+        console.log('image is: ', image)
+        return image;
     }
 
 
 
     render() {
         return (
-            <div class="image-card card">
+            <div className="image-card card">
                 <img alt="placeholder-alt" src={this._renderImage()} />
                 <input type="text" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText} onChange={e => {
                     this.setState({ inputText: e.target.value })
                 }}></input>
                 <button type="submit" hidden={this.props.lockedEditing} onClick={e => {
-                    this.setState({ url: this.state.inputText },()=>{
-                        let groupClone = Object.assign({},this.props.group);
-                        groupClone.images[this.props.imageIndex].url = this.state.url;
-                        this.props._modifyState(this.props.groupIndex,groupClone)
+                    this.setState({ url: this.state.inputText }, () => {
+                        let groupClone = Object.assign({}, this.props.group);
+                        groupClone.images[this.props.imageIndex].url = this.state.inputText;
+
+                        let splitUrl = this.state.inputText.split('?');
+                        groupClone.images[this.props.imageIndex].baseUrl = splitUrl[0];
+                        groupClone.images[this.props.imageIndex].imageParameters = splitUrl[1];
+
+                        this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                            this.props._handleCustomTemplates();
+                        })
                     })
                 }}>Reload image</button>
                 <div className="center subtext metadata">
                     <p>
-                        <a href={this.props.image.url} target="_blank">Open in new tab</a>
+                        <a href={this.props.image.url} target="_blank" rel="noopener noreferrer" >Open in new tab</a>
                     </p>
                     <p>
-                        <a href={`https://sandbox.imgix.com/view?url=${encodeURIComponent(this._renderImage())}`} target="_blank">Open in sandbox</a>
+                        <a href={`https://sandbox.imgix.com/view?url=${encodeURIComponent(this._renderImage())}`} target="_blank" rel="noopener noreferrer">Open in sandbox</a>
                     </p>
                     <p className="wrap">
                         <span className="bold">parameters: </span>

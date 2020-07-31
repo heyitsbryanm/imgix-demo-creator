@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import ImageCard from './ImageCard';
+import customParameterFunctions from '../functions/customParameterFunctions'
 
 export default class Group extends PureComponent {
     constructor(props) {
@@ -28,7 +29,6 @@ export default class Group extends PureComponent {
             let arrayClone = [...array];
             let arrayObject = Object.assign({}, array[index]);
             arrayClone.push(arrayObject);
-            console.log('arrayClone is: ', arrayClone)
             counter += 1;
             this.setState({
                 images: arrayClone
@@ -37,7 +37,7 @@ export default class Group extends PureComponent {
                     let groupsClone = Object.assign({}, this.props.group);
                     groupsClone.images = arrayClone;
 
-                    this.props._modifyState(this.props.groupIndex, groupsClone, 'group')
+                    this.props._modifyAppState(this.props.groupIndex, groupsClone, 'group')
                 }
             })
         })
@@ -45,7 +45,18 @@ export default class Group extends PureComponent {
 
     _renderImageCard = () => {
         return Object.entries(this.props.group.images).map(mapx => {
-            return <ImageCard _modifyState={this.props._modifyState} group={this.props.group} groupIndex={this.props.groupIndex} imageIndex={mapx[0]} image={mapx[1]} key={mapx[1].title} imageOptions={this.props.group.groupOptions.imageOptions} lockedEditing={this.props.lockedEditing}
+            let [imageIndex, image] = mapx;
+            return <ImageCard
+                _modifyAppState={this.props._modifyAppState}
+                group={this.props.group}
+                groupIndex={this.props.groupIndex}
+                imageIndex={imageIndex}
+                key={image.title + imageIndex}
+                image={image}
+                customCodeParams={this.props.group.images[imageIndex].customCodeParams}
+                imageOptions={this.props.group.groupOptions.imageOptions}
+                lockedEditing={this.props.lockedEditing}
+                _handleCustomTemplates={this._handleCustomTemplates}
             />
         })
     }
@@ -54,6 +65,17 @@ export default class Group extends PureComponent {
         this.setState({ [stateKey]: e })
     }
 
+    _handleCustomTemplates = async () => {
+        let customFunction = this.props.group.groupOptions.imageOptions.customFunction;
+        if (customFunction !== 'false' && customFunction !== false) {
+            await customParameterFunctions[customFunction](customFunction, this.props._modifyAppState, this.props.groupIndex, this.props.group).then((resolveFunction) => {
+                return resolveFunction
+            })
+                .then((res) => {
+                    this.props._modifyAppState(this.props.groupIndex, res);
+                })
+        }
+    }
     render() {
         return (
 
@@ -61,7 +83,7 @@ export default class Group extends PureComponent {
                 <div className="textContentContainer">
                     <h2 className="groupTitle" hidden={!this.props.lockedEditing}>{this.state.title}</h2>
                     <h2 hidden={this.props.lockedEditing}>Title</h2>
-                    <textarea hidden={this.props.lockedEditing} class="h2 editableField title" value={this.state.title}
+                    <textarea hidden={this.props.lockedEditing} className="h2 editableField title" value={this.state.title}
                         onChange={(e) => {
                             this._handleTextInputChange('title', e.target.value)
                         }}
@@ -69,13 +91,13 @@ export default class Group extends PureComponent {
                             this.setState({ title: e.target.value }, () => {
                                 let groupClone = Object.assign({}, this.props.group);
                                 groupClone.groupOptions.title = this.state.title;
-                                this.props._modifyState(this.props.groupIndex, groupClone)
+                                this.props._modifyAppState(this.props.groupIndex, groupClone)
                             });
                         }} />
 
                     <p hidden={!this.props.lockedEditing} className="groupDescription">{this.props.group.groupOptions.description}</p>
                     <h2 hidden={this.props.lockedEditing}>description</h2>
-                    <input type="text" hidden={this.props.lockedEditing} class="h2 editableField description" value={this.state.description}
+                    <input type="text" hidden={this.props.lockedEditing} className="h2 editableField description" value={this.state.description}
                         onChange={(e) => {
                             this._handleTextInputChange('Description', e.target.value)
                         }}
@@ -83,8 +105,7 @@ export default class Group extends PureComponent {
                             this.setState({ description: e.target.value }, () => {
                                 let groupClone = Object.assign({}, this.props.group);
                                 groupClone.groupOptions.description = this.state.description;
-                                console.log('groupClone is: ', groupClone)
-                                this.props._modifyState(this.props.groupIndex, groupClone)
+                                this.props._modifyAppState(this.props.groupIndex, groupClone)
                             });
                         }} />
                 </div>
@@ -120,7 +141,9 @@ export default class Group extends PureComponent {
                                             let groupClone = Object.assign({}, this.props.group);
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = true;
-                                            this.props._modifyState(this.props.groupIndex, groupClone);
+                                            this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
+                                                this._handleCustomTemplates();
+                                            });
                                         })
 
                                     }}
@@ -138,10 +161,21 @@ export default class Group extends PureComponent {
                                             let groupClone = Object.assign({}, this.props.group);
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = false;
-                                            this.props._modifyState(this.props.groupIndex, groupClone);
+                                            this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
+                                                this._handleCustomTemplates();
+                                            });
                                         })
                                     }}
                                 >Unset group parameters</button>
+                                <select onChange={(e) => {
+                                    let groupClone = Object.assign({}, this.props.group);
+                                    groupClone.groupOptions.imageOptions.customFunction = e.target.value;
+                                    this.props._modifyAppState(this.props.groupIndex, groupClone);
+                                    this._handleCustomTemplates()
+                                }}>
+                                    <option value={false}>No custom functions</option>
+                                    <option value="cropOutFace">Crop Out Face</option>
+                                </select>
                             </form>
                         </ul>
                     </div>
@@ -152,7 +186,7 @@ export default class Group extends PureComponent {
                     {this._renderImageCard()}
                     <div className="card" hidden={this.props.lockedEditing}>
                         <button className="addImage" id="addImage" onClick={(e) => {
-                            this._addImageCard()
+                            this._addImageCard();
                         }}>Add image</button>
                     </div>
                 </div>
