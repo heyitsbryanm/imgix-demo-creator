@@ -24,12 +24,16 @@ export default class Group extends PureComponent {
         let array = this.props.group.images;
 
         let counter = 0;
+
         array.map(mapx => {
             let index = array.length - 1;
             let arrayClone = [...array];
             let arrayObject = Object.assign({}, array[index]);
             arrayClone.push(arrayObject);
             counter += 1;
+            console.log('arrayClone is: ', arrayClone)
+            console.log('arrayClone.length is: ', arrayClone.length)
+            console.log('arrayClone[0] is: ', arrayClone[0])
             this.setState({
                 images: arrayClone
             }, () => {
@@ -40,7 +44,21 @@ export default class Group extends PureComponent {
                     this.props._modifyAppState(this.props.groupIndex, groupsClone, 'group')
                 }
             })
-        })
+        });
+        if (array.length === 0) {
+
+            let groupsClone = { ...this.props.group };
+            groupsClone.images.push(
+                {
+                    baseUrl: "https://assets.imgix.net/examples/blueberries.jpg",
+                    customCodeParams: "",
+                    imageParameters: "w=600&h=600&fit=crop&auto=compress,format",
+                    url: 'https://assets.imgix.net/examples/blueberries.jpg?w=600&h=600&fit=crop&auto=compress,format'
+                });
+            console.log(groupsClone)
+            this.props._modifyAppState(this.props.groupIndex, groupsClone, 'group')
+        }
+
     };
 
     _renderImageCard = () => {
@@ -142,7 +160,7 @@ export default class Group extends PureComponent {
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = true;
                                             groupClone.groupOptions.imageOptions.appendParameterSet = false;
-                                            this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
+                                            this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
                                                 this._handleCustomTemplates();
                                             });
                                         })
@@ -164,7 +182,7 @@ export default class Group extends PureComponent {
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = false;
                                             groupClone.groupOptions.imageOptions.appendParameterSet = true;
-                                            this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
+                                            this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
                                                 this._handleCustomTemplates();
                                             });
                                         })
@@ -184,7 +202,7 @@ export default class Group extends PureComponent {
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = false;
                                             groupClone.groupOptions.imageOptions.appendParameterSet = false;
-                                            this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
+                                            this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
                                                 this._handleCustomTemplates();
                                             });
                                         })

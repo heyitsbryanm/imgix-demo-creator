@@ -21,7 +21,7 @@ export default class ImageCard extends PureComponent {
     };
 
     _renderImage = () => {
-        console.log('this.props.imageOptions.appendParameterSetis: ',this.props.imageOptions.appendParameterSet)
+        console.log('this.props.imageOptions.appendParameterSetis: ', this.props.imageOptions.appendParameterSet)
         let image = this.props.image.baseUrl
         if (this.props.imageOptions.parameterSet === true) {
             image = this.props.image.baseUrl + '?' + this.props.imageOptions.parameterSetValue
@@ -66,6 +66,17 @@ export default class ImageCard extends PureComponent {
                         })
                     })
                 }}>Reload image</button>
+
+                <button type="submit" hidden={this.props.lockedEditing} onClick={e => {
+                    this.setState({ url: this.state.inputText }, () => {
+                        let groupClone = {...this.props.group};
+                        groupClone.images.splice(this.props.imageIndex,1)
+                        console.log(groupClone.images)
+                        this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                            this.props._handleCustomTemplates();
+                        })
+                    })
+                }}>Delete image</button>
                 <div className="center subtext metadata">
                     <p>
                         <a href={this.props.image.url} target="_blank" rel="noopener noreferrer" >Open in new tab</a>
