@@ -141,6 +141,7 @@ export default class Group extends PureComponent {
                                             let groupClone = Object.assign({}, this.props.group);
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = true;
+                                            groupClone.groupOptions.imageOptions.appendParameterSet = false;
                                             this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
                                                 this._handleCustomTemplates();
                                             });
@@ -148,6 +149,27 @@ export default class Group extends PureComponent {
 
                                     }}
                                 >Apply parameters</button>
+                                <button type="submit"
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        let parameterSetValue = this.state.imageOptions.parameterSetValue.replace('?', '').trim();
+
+                                        this.setState({
+                                            imageOptions: {
+                                                parameterSetValue: parameterSetValue,
+                                                parameterSet: this.props.group.groupOptions.imageOptions.parameterSet
+                                            }
+                                        }, () => {
+                                            let groupClone = Object.assign({}, this.props.group);
+                                            groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
+                                            groupClone.groupOptions.imageOptions.parameterSet = false;
+                                            groupClone.groupOptions.imageOptions.appendParameterSet = true;
+                                            this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
+                                                this._handleCustomTemplates();
+                                            });
+                                        })
+                                    }}
+                                >Append parameters</button>
                                 <button type="submit"
                                     onClick={e => {
                                         e.preventDefault();
@@ -161,6 +183,7 @@ export default class Group extends PureComponent {
                                             let groupClone = Object.assign({}, this.props.group);
                                             groupClone.groupOptions.imageOptions.parameterSetValue = this.state.imageOptions.parameterSetValue;
                                             groupClone.groupOptions.imageOptions.parameterSet = false;
+                                            groupClone.groupOptions.imageOptions.appendParameterSet = false;
                                             this.props._modifyAppState(this.props.groupIndex, groupClone,()=>{
                                                 this._handleCustomTemplates();
                                             });
@@ -174,7 +197,7 @@ export default class Group extends PureComponent {
                                     this._handleCustomTemplates()
                                 }}>
                                     <option value={false}>No custom functions</option>
-                                    <option value="cropOutFace">Crop Out Face</option>
+                                    <option value="centerFace">Crop Out Face</option>
                                 </select>
                             </form>
                         </ul>

@@ -30,6 +30,7 @@ export default class App extends React.Component {
             imageOptions: {
               parameterSet: false,
               parameterSetValue: '',
+              appendParameterSet: false,
               customFunction: false
             }
           },

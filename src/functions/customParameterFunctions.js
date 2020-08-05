@@ -1,5 +1,5 @@
 module.exports = {
-    cropOutFace: async (value, _modifyAppState, groupIndex, group) => {
+    centerFace: async (value, _modifyAppState, groupIndex, group) => {
         // creates a promise. We want to request all the images before we get back with parameters.
         return new Promise(async res => {
             // inherits the state of the component
@@ -101,5 +101,9 @@ module.exports = {
             console.log('groupClone in the function is: ', groupClone)
             return groupClone
         })
+    },
+    cropOutFace: async (value, _modifyAppState, groupIndex, group) => {
+        // todo: build the function for cropping out faces
+        
     }
 }

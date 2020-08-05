@@ -21,18 +21,25 @@ export default class ImageCard extends PureComponent {
     };
 
     _renderImage = () => {
+        console.log('this.props.imageOptions.appendParameterSetis: ',this.props.imageOptions.appendParameterSet)
         let image = this.props.image.baseUrl
-        if (this.props.imageOptions.parameterSet === false) {
-            image = this.props.image.baseUrl + '?' + (this.props.image.imageParameters || '');
-        } else if (this.props.imageOptions.parameterSet === true) {
+        if (this.props.imageOptions.parameterSet === true) {
             image = this.props.image.baseUrl + '?' + this.props.imageOptions.parameterSetValue
+        } else if (this.props.imageOptions.appendParameterSet === true) {
+            console.log('yes its true')
+            if (this.props.image.url.indexOf('?') > -1) {
+                image = this.props.image.url + '&' + this.props.imageOptions.parameterSetValue
+            } else {
+                image = this.props.image.baseUrl + '?' + this.props.imageOptions.parameterSetValue
+            }
+        } else if (this.props.imageOptions.parameterSet === false) {
+            image = this.props.image.baseUrl + '?' + (this.props.image.imageParameters || '');
         }
 
         // custom functions
         if (this.props.group.groupOptions.imageOptions.customFunction) {
             image = this.props.image.baseUrl + '?' + this.props.customCodeParams
         }
-        console.log('image is: ', image)
         return image;
     }
 
