@@ -5,7 +5,9 @@ export default class ImageCard extends PureComponent {
         super(props);
         this.state = {
             url: this.props.image.url,
-            inputText: this.props.image.url
+            inputText: this.props.image.url,
+            group: this.props.group,
+            counter: 0
         }
         // inherited props:
         // this.props.imageOptions
@@ -65,12 +67,14 @@ export default class ImageCard extends PureComponent {
                     })
                 }}>Reload image</button>
 
-                <button type="submit" hidden={this.props.lockedEditing} onClick={e => {
+                <button type="submit" key={`buttonId${this.props.groupIndex + this.props.imageIndex}`} hidden={this.props.lockedEditing} onClick={e => {
                     let groupClone = { ...this.props.group };
-                    groupClone.images.splice(this.props.imageIndex, 1);
-                    this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
-                        this.props._handleCustomTemplates();
-                    })
+                        groupClone.images = groupClone.images.filter((x,y)=>{
+                            return y != this.props.imageIndex
+                        })
+                        this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                            this.props._handleCustomTemplates();
+                        })
                 }}>Delete image</button>
                 <div className="center subtext metadata">
                     <p>

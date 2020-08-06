@@ -65,7 +65,7 @@ export default class Group extends PureComponent {
                 group={this.props.group}
                 groupIndex={this.props.groupIndex}
                 imageIndex={imageIndex}
-                key={'groupIndex' + this.props.groupIndex + '_imageIndex' + imageIndex}
+                key={`imageCardId_${this.props.groupIndex + imageIndex}`}
                 image={image}
                 customCodeParams={this.props.group.images[imageIndex].customCodeParams}
                 imageOptions={this.props.group.groupOptions.imageOptions}

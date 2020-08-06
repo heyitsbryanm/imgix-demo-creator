@@ -57,13 +57,7 @@ export default class App extends React.Component {
 
   _modifyAppState = (groupIndex, array, callback) => {
     let arrayClone = [...this.state.groups];
-    console.log('groupIndex is: ',groupIndex);
-    console.log('arrayClone before the mutation is: ',arrayClone)
-    arrayClone[1].groupOptions.test = true;
-    // arrayClone.splice(groupIndex, 1, array);
-    console.log('array is: ',array)
-    console.log('arrayClone is: ',(arrayClone))
-    console.log('arrayClone.splice(groupIndex, 1, array) is: ',arrayClone.splice(groupIndex, 1, array))
+    arrayClone.splice(groupIndex, 1, array);
     this.setState({
       groups: arrayClone
     }, () => {
