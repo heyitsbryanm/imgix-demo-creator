@@ -15,7 +15,9 @@ export default class App extends React.Component {
     let param = window.location.search.replace('?', '');
     if (param.length > 0 && param.toLowerCase().indexOf('load=') > -1) {
       param = param.split('&').filter(x => x.includes('load'))[0].split('=')[1];
-      this.setState(JSON.parse(atob(param)))
+      let loadedData = JSON.parse(atob(param));
+      delete loadedData.sharedUrl;
+      this.setState(loadedData)
     } else {
       this.setState({
         data: true,
@@ -82,7 +84,10 @@ export default class App extends React.Component {
   }
 
   _sharePreview = () => {
-    let sharedUrl = window.location.host + '?load=' + btoa(JSON.stringify(this.state));
+    let newState = {...this.state};
+    delete newState.sharedUrl;
+
+    let sharedUrl = window.location.host + '?load=' + btoa(JSON.stringify(newState));
     this.setState({ sharedUrl });
   }
 
