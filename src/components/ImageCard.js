@@ -49,32 +49,34 @@ export default class ImageCard extends PureComponent {
         return (
             <div className="image-card card">
                 <img alt="placeholder-alt" src={this._renderImage()} />
-                <input type="text" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText} onChange={e => {
-                    this.setState({ inputText: e.target.value })
-                }}></input>
-                <button type="submit" hidden={this.props.lockedEditing} onClick={e => {
-                    this.setState({ url: this.state.inputText }, () => {
-                        let groupClone = Object.assign({}, this.props.group);
-                        groupClone.images[this.props.imageIndex].url = this.state.inputText;
+                <input type="text" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText}
+                    onChange={e => {
+                        this.setState({ inputText: e.target.value })
+                    }}
+                    onBlur={e => {
+                        this.setState({ url: this.state.inputText }, () => {
+                            let groupClone = Object.assign({}, this.props.group);
+                            groupClone.images[this.props.imageIndex].url = this.state.inputText;
 
-                        let splitUrl = this.state.inputText.split('?');
-                        groupClone.images[this.props.imageIndex].baseUrl = splitUrl[0];
-                        groupClone.images[this.props.imageIndex].imageParameters = splitUrl[1];
+                            let splitUrl = this.state.inputText.split('?');
+                            groupClone.images[this.props.imageIndex].baseUrl = splitUrl[0];
+                            groupClone.images[this.props.imageIndex].imageParameters = splitUrl[1];
 
-                        this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
-                            this.props._handleCustomTemplates();
+                            this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                                this.props._handleCustomTemplates();
+                            })
                         })
-                    })
-                }}>Reload image</button>
+                    }}
+                ></input>
 
                 <button type="submit" key={`buttonId${this.props.groupIndex + this.props.imageIndex}`} hidden={this.props.lockedEditing} onClick={e => {
                     let groupClone = { ...this.props.group };
-                        groupClone.images = groupClone.images.filter((x,y)=>{
-                            return y != this.props.imageIndex
-                        })
-                        this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
-                            this.props._handleCustomTemplates();
-                        })
+                    groupClone.images = groupClone.images.filter((x, y) => {
+                        return y != this.props.imageIndex
+                    })
+                    this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                        this.props._handleCustomTemplates();
+                    })
                 }}>Delete image</button>
                 <div className="center subtext metadata">
                     <p>
