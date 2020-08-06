@@ -48,7 +48,6 @@ module.exports = {
                                                 height = value
                                             }
 
-                                            console.log(x.indexOf('mark'))
                                             // now, remove any marks from the iamge
                                             return x.indexOf('mark') < 0
                                         }).join('&')
@@ -78,7 +77,6 @@ module.exports = {
                                 }
                                 mapx.customImage = `https://bryansandbox.imgix.net/_static/transparent_pixel.png`;
                             }
-                            console.log('mapx is: ', mapx)
                             return mapRes(mapx);
                         })
                         .catch(error => {
@@ -89,7 +87,6 @@ module.exports = {
                 }).then(() => {
                     count += 1;
                     if (count === groupClone.images.length) {
-                        console.log('groupClone is supposed to be: ', groupClone)
                         return res(groupClone)
                     }
                 })
@@ -98,7 +95,6 @@ module.exports = {
             // modify the app state
             // return an array of image parameters to be applied
         }).then((groupClone) => {
-            console.log('groupClone in the function is: ', groupClone)
             return groupClone
         })
     },

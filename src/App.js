@@ -57,7 +57,13 @@ export default class App extends React.Component {
 
   _modifyAppState = (groupIndex, array, callback) => {
     let arrayClone = [...this.state.groups];
-    arrayClone.splice(groupIndex, 1, array);
+    console.log('groupIndex is: ',groupIndex);
+    console.log('arrayClone before the mutation is: ',arrayClone)
+    arrayClone[1].groupOptions.test = true;
+    // arrayClone.splice(groupIndex, 1, array);
+    console.log('array is: ',array)
+    console.log('arrayClone is: ',(arrayClone))
+    console.log('arrayClone.splice(groupIndex, 1, array) is: ',arrayClone.splice(groupIndex, 1, array))
     this.setState({
       groups: arrayClone
     }, () => {
@@ -71,8 +77,8 @@ export default class App extends React.Component {
   _renderGroups = () => {
     return Object.entries(this.state.groups).map(mapx => {
       let [groupIndex, group] = mapx;
-      return <Group groupIndex={groupIndex} group={group} key={group.title + groupIndex}
-        lockedEditing={this.state.lockedEditing} _modifyAppState={this._modifyAppState}
+      return <Group groupIndex={groupIndex} group={group} key={'group_key_' + groupIndex}
+        lockedEditing={this.state.lockedEditing} _modifyAppState={this._modifyAppState} groups={this.state.groups}
       />
     })
   }

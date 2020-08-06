@@ -31,9 +31,6 @@ export default class Group extends PureComponent {
             let arrayObject = Object.assign({}, array[index]);
             arrayClone.push(arrayObject);
             counter += 1;
-            console.log('arrayClone is: ', arrayClone)
-            console.log('arrayClone.length is: ', arrayClone.length)
-            console.log('arrayClone[0] is: ', arrayClone[0])
             this.setState({
                 images: arrayClone
             }, () => {
@@ -55,7 +52,6 @@ export default class Group extends PureComponent {
                     imageParameters: "w=600&h=600&fit=crop&auto=compress,format",
                     url: 'https://assets.imgix.net/examples/blueberries.jpg?w=600&h=600&fit=crop&auto=compress,format'
                 });
-            console.log(groupsClone)
             this.props._modifyAppState(this.props.groupIndex, groupsClone, 'group')
         }
 
@@ -69,7 +65,7 @@ export default class Group extends PureComponent {
                 group={this.props.group}
                 groupIndex={this.props.groupIndex}
                 imageIndex={imageIndex}
-                key={image.title + imageIndex}
+                key={'groupIndex' + this.props.groupIndex + '_imageIndex' + imageIndex}
                 image={image}
                 customCodeParams={this.props.group.images[imageIndex].customCodeParams}
                 imageOptions={this.props.group.groupOptions.imageOptions}
@@ -229,6 +225,15 @@ export default class Group extends PureComponent {
                         <button className="addImage" id="addImage" onClick={(e) => {
                             this._addImageCard();
                         }}>Add image</button>
+                        <button className="deleteGroup" id="deleteGroup" onClick={(e) => {
+                            let groupsClone = [ ...this.props.groups ];
+                            console.log('groupsClone is: ',groupsClone)
+                            console.log('groupsClone[this.props.groupIndex] is: ',groupsClone[this.props.groupIndex])
+                            // groupsClone.splice(this.props.groupIndex, 1);
+                            // this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
+                            //     this.props._handleCustomTemplates();
+                            // })
+                        }}>Delete group</button>
                     </div>
                 </div>
             </div>

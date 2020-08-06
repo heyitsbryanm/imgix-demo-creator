@@ -431,6 +431,6 @@ input.editableField:not([hidden=""]), textarea.editableField:not([hidden=""]) {
 
 .images-container {
   display: grid;
-  grid-template: auto/repeat(4,25%);
+  grid-template: auto/repeat(4,20%);
   grid-gap: 10px 20px;
 }
