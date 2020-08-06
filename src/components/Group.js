@@ -227,12 +227,12 @@ export default class Group extends PureComponent {
                         }}>Add image</button>
                         <button className="deleteGroup" id="deleteGroup" onClick={(e) => {
                             let groupsClone = [ ...this.props.groups ];
-                            console.log('groupsClone is: ',groupsClone)
-                            console.log('groupsClone[this.props.groupIndex] is: ',groupsClone[this.props.groupIndex])
-                            // groupsClone.splice(this.props.groupIndex, 1);
-                            // this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
-                            //     this.props._handleCustomTemplates();
-                            // })
+                            groupsClone = groupsClone.filter((x,y)=>{
+                                return this.props.groupIndex != y
+                            })
+                            this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
+                                this._handleCustomTemplates();
+                            })
                         }}>Delete group</button>
                     </div>
                 </div>

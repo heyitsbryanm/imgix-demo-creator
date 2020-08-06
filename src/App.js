@@ -57,7 +57,11 @@ export default class App extends React.Component {
 
   _modifyAppState = (groupIndex, array, callback) => {
     let arrayClone = [...this.state.groups];
-    arrayClone.splice(groupIndex, 1, array);
+    if(typeof(array.groupOptions) == 'undefined') {
+      arrayClone = array;
+    } else {
+      arrayClone.splice(groupIndex, 1, array);
+    }
     this.setState({
       groups: arrayClone
     }, () => {
