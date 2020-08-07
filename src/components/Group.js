@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react';
 import ImageCard from './ImageCard';
 import customParameterFunctions from '../functions/customParameterFunctions'
 
+import _ from 'lodash'
+
 export default class Group extends PureComponent {
     constructor(props) {
         super(props);
@@ -35,7 +37,7 @@ export default class Group extends PureComponent {
                 images: arrayClone
             }, () => {
                 if (counter === array.length) {
-                    let groupsClone = Object.assign({}, this.props.group);
+                    let groupsClone = _.clone(this.props.group);
                     groupsClone.images = arrayClone;
 
                     this.props._modifyAppState(this.props.groupIndex, groupsClone, 'group')
@@ -103,7 +105,7 @@ export default class Group extends PureComponent {
                         }}
                         onBlur={(e) => {
                             this.setState({ title: e.target.value }, () => {
-                                let groupClone = Object.assign({}, this.props.group);
+                                let groupClone = _.cloneDeep(this.props.group);
                                 groupClone.groupOptions.title = this.state.title;
                                 this.props._modifyAppState(this.props.groupIndex, groupClone)
                             });
@@ -113,11 +115,11 @@ export default class Group extends PureComponent {
                     <h2 hidden={this.props.lockedEditing}>description</h2>
                     <input type="text" hidden={this.props.lockedEditing} className="h2 editableField description" value={this.state.description}
                         onChange={(e) => {
-                            this._handleTextInputChange('Description', e.target.value)
+                            this._handleTextInputChange('description', e.target.value)
                         }}
                         onBlur={(e) => {
                             this.setState({ description: e.target.value }, () => {
-                                let groupClone = Object.assign({}, this.props.group);
+                                let groupClone = _.cloneDeep(this.props.group);
                                 groupClone.groupOptions.description = this.state.description;
                                 this.props._modifyAppState(this.props.groupIndex, groupClone)
                             });
