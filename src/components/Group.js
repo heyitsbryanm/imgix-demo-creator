@@ -95,7 +95,7 @@ export default class Group extends PureComponent {
     render() {
         return (
 
-            <div className="group">
+            <div className={`group ${(this.props.group.groupOptions.layoutStyle || 'halfWidth')}`}>
                 <div className="textContentContainer">
                     <h2 className="groupTitle" hidden={!this.props.lockedEditing}>{this.state.title}</h2>
                     <h2 hidden={this.props.lockedEditing}>Title</h2>
@@ -130,6 +130,20 @@ export default class Group extends PureComponent {
                     <div>
                         This div should contain the container's options. Such as:
           <ul>
+                            <h3>Group options</h3>
+                                <label htmlFor="setGroupWidth"></label>
+                                <select onChange={e=>{
+                                    let groupClone = _.cloneDeep(this.props.group);
+                                    groupClone.groupOptions.layoutStyle = e.target.value
+                                    this.props._modifyAppState(this.props.groupIndex,groupClone,()=>{
+                                        this._handleCustomTemplates();
+                                    })
+                                }}
+                                value={(this.props.group.groupOptions.layoutStyle || 'halfWidth)')}
+                                >
+                                    <option value="fullWidth">Full width</option>
+                                    <option value="halfWidth">Half width</option>
+                                </select>
                             <h3>Bulk parameter editing</h3>
                             <form>
                                 <label htmlFor="groupParametersValue">Apply parameter set here</label>
@@ -228,8 +242,8 @@ export default class Group extends PureComponent {
                             this._addImageCard();
                         }}>Add image</button>
                         <button className="deleteGroup" id="deleteGroup" onClick={(e) => {
-                            let groupsClone = [ ...this.props.groups ];
-                            groupsClone = groupsClone.filter((x,y)=>{
+                            let groupsClone = [...this.props.groups];
+                            groupsClone = groupsClone.filter((x, y) => {
                                 return this.props.groupIndex != y
                             })
                             this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {

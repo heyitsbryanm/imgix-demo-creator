@@ -29,6 +29,7 @@ export default class App extends React.Component {
           groupOptions: {
             title: "This is the title of a group.",
             description: "This is the description of the group.",
+            layoutStyle: 'halfWidth',
             imageOptions: {
               parameterSet: false,
               parameterSetValue: '',

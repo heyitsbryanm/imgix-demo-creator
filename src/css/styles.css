@@ -383,14 +383,6 @@ label {
   font-size: 1.2em;
 }
 
-/*========== group ==========*/
-
-.container {
-    display: grid;
-    grid-template: auto/repeat(2,1fr);
-    grid-gap: 10px 20px;
-}
-
 /*========== imageCard ==========*/
 
 .images-container {
@@ -423,14 +415,28 @@ input.editableField:not([hidden=""]), textarea.editableField:not([hidden=""]) {
   display: block;
 }
 
-/*========== groups ==========*/
+/*========== groups & containers ==========*/
 
-.group {
+.App {
+  padding: 30px 50px
+}
+
+.container {
+  display: grid;
+  width: 100%;
+}
+
+.group.fullWidth {
   width: 100%
+}
+
+.group, .group.halfWidth {
+  width: 50%
 }
 
 .images-container {
   display: grid;
   grid-template: auto/repeat(4,20%);
-  grid-gap: 10px 20px;
+  grid-gap: 10px 6.6%;
 }
+
