@@ -96,10 +96,11 @@ export default class Group extends PureComponent {
         return (
 
             <div className={`group ${(this.props.group.groupOptions.layoutStyle || 'halfWidth')}`}>
+                <div class="section_divider"></div>
                 <div className="textContentContainer">
                     <h2 className="groupTitle" hidden={!this.props.lockedEditing}>{this.state.title}</h2>
-                    <h2 hidden={this.props.lockedEditing}>Title</h2>
-                    <textarea hidden={this.props.lockedEditing} className="h2 editableField title" value={this.state.title}
+                    <h6 hidden={this.props.lockedEditing}>Title</h6>
+                    <input type="text" hidden={this.props.lockedEditing} className="h2 editableField heading title" value={this.state.title}
                         onChange={(e) => {
                             this._handleTextInputChange('title', e.target.value)
                         }}
@@ -112,8 +113,9 @@ export default class Group extends PureComponent {
                         }} />
 
                     <p hidden={!this.props.lockedEditing} className="groupDescription">{this.props.group.groupOptions.description}</p>
-                    <h2 hidden={this.props.lockedEditing}>description</h2>
-                    <input type="text" hidden={this.props.lockedEditing} className="h2 editableField description" value={this.state.description}
+                    <h6 hidden={this.props.lockedEditing}>description</h6>
+                    {console.log('this.props.lockedEditingis: ', this.props.lockedEditing)}
+                    <input type="text" hidden={this.props.lockedEditing} className="h2 groupDescription p editableField heading description" placeholder="Enter a description" value={this.state.description}
                         onChange={(e) => {
                             this._handleTextInputChange('description', e.target.value)
                         }}
@@ -131,19 +133,19 @@ export default class Group extends PureComponent {
                         This div should contain the container's options. Such as:
           <ul>
                             <h3>Group options</h3>
-                                <label htmlFor="setGroupWidth"></label>
-                                <select onChange={e=>{
-                                    let groupClone = _.cloneDeep(this.props.group);
-                                    groupClone.groupOptions.layoutStyle = e.target.value
-                                    this.props._modifyAppState(this.props.groupIndex,groupClone,()=>{
-                                        this._handleCustomTemplates();
-                                    })
-                                }}
+                            <label htmlFor="setGroupWidth"></label>
+                            <select onChange={e => {
+                                let groupClone = _.cloneDeep(this.props.group);
+                                groupClone.groupOptions.layoutStyle = e.target.value
+                                this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                                    this._handleCustomTemplates();
+                                })
+                            }}
                                 value={(this.props.group.groupOptions.layoutStyle || 'halfWidth)')}
-                                >
-                                    <option value="fullWidth">Full width</option>
-                                    <option value="halfWidth">Half width</option>
-                                </select>
+                            >
+                                <option value="fullWidth">Full width</option>
+                                <option value="halfWidth">Half width</option>
+                            </select>
                             <h3>Bulk parameter editing</h3>
                             <form>
                                 <label htmlFor="groupParametersValue">Apply parameter set here</label>
@@ -237,10 +239,26 @@ export default class Group extends PureComponent {
 
                 <div className="images-container">
                     {this._renderImageCard()}
-                    <div className="card" hidden={this.props.lockedEditing}>
-                        <button className="addImage" id="addImage" onClick={(e) => {
-                            this._addImageCard();
-                        }}>Add image</button>
+                    <div className="image-card card emptyCard" hidden={this.props.lockedEditing}>
+                        <div className="svgContainer">
+                            <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <title>Add image</title>
+                                <description>Add image</description>
+                                <path d="M0 0H67V67H0V0Z" />
+                                <path d="M0 8.375V46.0625H16.75H46.0625H50.25V8.375H0ZM46.0625 37.6875L33.5 20.9375L20.5188 37.2687L12.5625 29.3125L4.1875 37.6875V12.5625H46.0625V37.6875Z" fill="white" />
+                                <path d="M12.5625 25.125C14.8752 25.125 16.75 23.2502 16.75 20.9375C16.75 18.6248 14.8752 16.75 12.5625 16.75C10.2498 16.75 8.375 18.6248 8.375 20.9375C8.375 23.2502 10.2498 25.125 12.5625 25.125Z" fill="white" />
+                                <path d="M58.625 54.4375V12.5625H54.4375V50.6688H4.1875V54.4375H58.625Z" fill="white" />
+                                <path d="M62.8125 20.9375V59.0438H12.5625V62.8125H67V20.9375H62.8125Z" fill="white" />
+                                <path d="M0 0V-2H-2V0H0ZM67 0H69V-2H67V0ZM67 67V69H69V67H67ZM0 67H-2V69H0V67ZM0 2H67V-2H0V2ZM65 0V67H69V0H65ZM67 65H0V69H67V65ZM2 67V0H-2V67H2Z" />
+                            </svg>
+                        </div>
+
+                        <div className="card-info-container center">
+                            <button className="addImage button" onClick={(e) => {
+                                this._addImageCard();
+                            }}>Add image</button>
+                        </div>
+                        {/* todo: move this to a function */}
                         <button className="deleteGroup" id="deleteGroup" onClick={(e) => {
                             let groupsClone = [...this.props.groups];
                             groupsClone = groupsClone.filter((x, y) => {

@@ -38,7 +38,7 @@ export default class App extends React.Component {
             }
           },
           images: [{
-            url: "http://bryansandbox.imgix.net/_static/images/img02.jpg",
+            url: "http://bryansandbox.imgix.net/_static/images/img02.jpg?w=500&auto=compress,format",
             baseUrl: "http://bryansandbox.imgix.net/_static/images/img02.jpg",
             customCodeParams: '',
             imageParameters: 'w=500&auto=compress,format'
@@ -60,7 +60,7 @@ export default class App extends React.Component {
 
   _modifyAppState = (groupIndex, array, callback) => {
     let arrayClone = [...this.state.groups];
-    if(typeof(array.groupOptions) == 'undefined') {
+    if (typeof (array.groupOptions) == 'undefined') {
       arrayClone = array;
     } else {
       arrayClone.splice(groupIndex, 1, array);
@@ -68,7 +68,7 @@ export default class App extends React.Component {
     this.setState({
       groups: arrayClone
     }, () => {
-      if (typeof callback == "function"){
+      if (typeof callback == "function") {
         callback();
       }
     })
@@ -85,7 +85,7 @@ export default class App extends React.Component {
   }
 
   _sharePreview = () => {
-    let newState = {...this.state};
+    let newState = { ...this.state };
     delete newState.sharedUrl;
 
     let sharedUrl = window.location.host + '?load=' + btoa(JSON.stringify(newState));
@@ -102,7 +102,18 @@ export default class App extends React.Component {
     } else {
       return (
         <div className='App'>
-          <header className='header'>
+          <header className='page-header'>
+            <div className="page-width">
+              <div className="page-width-inner">
+                <div class="logo">
+                  <div class="logo__item logo__image lightBlue logoPlaceholder">DEMO GENERATOR&nbsp;</div>
+                  <div class="logo__item logo__powered">
+                    <span class="logo__powered__item logo__powered__text">codepen by the</span>
+                    <span class="logo__powered__item logo__powered__logo">&nbsp;imgix support team</span>.
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="pageOptions">
               <a href={this.state.sharedUrl} target="_blank" rel="noopener noreferrer" >{this.state.sharedUrl}</a>
               <button onClick={(e) => {
@@ -114,36 +125,45 @@ export default class App extends React.Component {
               }} />
               <label htmlFor="lockedEditing">Lock editing?</label>
             </div>
-
-            <h1 className="mainTitle" hidden={!this.state.lockedEditing}>{this.state.title}</h1>
-            <h1 hidden={this.state.lockedEditing}>Title</h1>
-            <textarea hidden={this.state.lockedEditing} className="h1 editableField title" value={this.state.title}
-              onChange={(e) => {
-                this._handleTextInputChange('title', e.target.value)
-              }}
-              onBlur={(e) => {
-                this.setState({ title: e.target.value });
-              }} />
-
-            <p className="mainDescription" hidden={!this.state.lockedEditing}>{this.state.description}</p>
-            <p hidden={this.state.lockedEditing}>Title</p>
-            <textarea hidden={this.state.lockedEditing} className="p editableField description" value={this.state.description}
-              onChange={(e) => {
-                this._handleTextInputChange('description', e.target.value)
-              }}
-              onBlur={(e) => {
-                this.setState({ description: e.target.value });
-              }} />
           </header>
-          <section className='container'>
 
-            {this._renderGroups()}
-            <div className="group" hidden={this.state.lockedEditing}>
-              <button className="addGroup" id="addGroup" onClick={() => {
-                this._addGroup()
-              }}>Add group</button>
+          <section className="fold">
+            <div className="page-width">
+              <div className="page-width-inner">
+                <h1 className="mainTitle white" hidden={!this.state.lockedEditing}>{this.state.title}</h1>
+                <h6 hidden={this.state.lockedEditing}>Title</h6>
+                <input hidden={this.state.lockedEditing} className="h1 editableField title" value={this.state.title}
+                  onChange={(e) => {
+                    this._handleTextInputChange('title', e.target.value)
+                  }}
+                  onBlur={(e) => {
+                    this.setState({ title: e.target.value });
+                  }} />
+
+                <h2 className="mainDescription subtitle" hidden={!this.state.lockedEditing}>{this.state.description}</h2>
+                <h6 hidden={this.state.lockedEditing}>Description</h6>
+                <input hidden={this.state.lockedEditing} className="mainDescription subtitle h2 editableField" value={this.state.description}
+                  onChange={(e) => {
+                    this._handleTextInputChange('description', e.target.value)
+                  }}
+                  onBlur={(e) => {
+                    this.setState({ description: e.target.value });
+                  }} />
+              </div>
             </div>
+          </section>
 
+          <section className='container'>
+            <div className="page-width">
+              <div className="page-width-inner">
+                {this._renderGroups()}
+                <div className="group" hidden={this.state.lockedEditing}>
+                  <button className="addGroup" id="addGroup" onClick={() => {
+                    this._addGroup()
+                  }}>Add group</button>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       );

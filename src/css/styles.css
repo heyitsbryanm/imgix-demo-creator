@@ -75,13 +75,19 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.editableField.heading {
   color: #354b5a;
   font-family: "Roboto Slab", sans-serif;
+  font-weight: 400;
 }
 
-p {
+p, .p {
   color: #6686a0;
+}
+
+.p {
+  font-size: 100%;
 }
 
 .subtext {
@@ -111,7 +117,6 @@ code.parameters.inline {
   text-overflow: ellipsis;
   white-space: inherit;
   overflow: hidden;
-  max-width: 50px
 }
 
 h1 {
@@ -143,10 +148,45 @@ h1 {
   font-size: 30px;
   line-height: 40px;
   margin-bottom: 66px;
-  width: 530px;
+  max-width: 530px;
+  width: 100%;
 }
 
 /*========== button styles ==========*/
+
+.imageActions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15%;
+}
+
+.imageActions svg:not(.noFill) {
+  fill: white;
+  stroke: white;
+}
+
+.imageActions svg {
+  width: 90%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.imageActions .imageActions-deleteImage {
+  width: 70%;
+}
+
+.imageActions button,
+.imageActions .button, .imageActions a {
+  background: #475f72;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+
+.imageActions a.button {
+  margin: 0;
+  background: #475f72;
+}
 
 .landing__form__container {
   margin-top: -35px;
@@ -223,14 +263,21 @@ button.button,
   box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  transition: background 0.4s;
+}
+
+button.display, .button.display {
   padding-top: 26px;
   padding-bottom: 26px;
-  font-family: "Roboto", sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 32px;
-  text-align: center;
-  transition: background 0.4s;
+}
+
+button {
+  cursor: pointer;
 }
 
 .options_form button {
@@ -329,6 +376,37 @@ input[type="url"].input--landing {
   background: #22303a;
 }
 
+/*------ fold editableFields ------*/
+
+.fold .title.editableField {
+  color: white;
+}
+
+/*========== editableFields ==========*/
+
+.card-info-container {
+  margin-top: 10px;
+}
+
+.emptyCard svg {
+  width: 80%;
+  height: auto;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.emptyCard .svgContainer {
+  padding: 10px;
+  text-align: center;
+  display: block;
+  background: #E8F0F4;
+  width: 100%;
+  height: 250px;
+}
+
+.card-info-container .addImage {
+  text-align: center;
+}
 /*========== page, rows & column css ==========*/
 
 h1.section_title {
@@ -385,6 +463,9 @@ label {
 
 /*========== imageCard ==========*/
 
+.card {
+  border: none;
+}
 .images-container {
   display: grid;
   grid-template: auto / repeat(4, 1fr);
@@ -399,7 +480,8 @@ label {
 
 /*========== demoElements ==========*/
 
-input.demoElement, textarea.demoElement {
+input.demoElement,
+textarea.demoElement {
   background: initial;
   border: initial;
   overflow: initial;
@@ -411,15 +493,35 @@ input.demoElement, textarea.demoElement {
   overflow-wrap: break-word;
 }
 
-input.editableField:not([hidden=""]), textarea.editableField:not([hidden=""]) {
+input.editableField:not([hidden=""]),
+textarea.editableField:not([hidden=""]) {
   display: block;
 }
 
-/*========== groups & containers ==========*/
-
-.App {
-  padding: 30px 50px
+input.editableField {
+  background: initial;
+  border: none;
 }
+
+input.editableField:hover {
+  text-decoration: underline;
+}
+
+.textContentContainer [type=text],
+.textContentContainer input.editableField:focus {
+  text-decoration: none;
+  border: none;
+  border-bottom: 1px solid gray;
+  box-shadow: none;
+  outline: none;
+
+}
+
+input.editableField {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/*========== groups & containers ==========*/
 
 .container {
   display: grid;
@@ -427,16 +529,33 @@ input.editableField:not([hidden=""]), textarea.editableField:not([hidden=""]) {
 }
 
 .group.fullWidth {
-  width: 100%
+  width: 100%;
 }
 
-.group, .group.halfWidth {
-  width: 50%
+.group,
+.group.halfWidth {
+  width: 50%;
 }
 
 .images-container {
   display: grid;
-  grid-template: auto/repeat(4,20%);
+  grid-template: auto/repeat(2, 50%);
   grid-gap: 10px 6.6%;
 }
 
+[hidden],
+input[hidden] {
+  display: none;
+}
+
+/*========== cards ==========*/
+
+.image-card .img-container {
+  height: 250px;
+  width: 100%;
+  display: flex;
+}
+.image-card img {
+  vertical-align: middle;
+  object-fit: contain;
+}
