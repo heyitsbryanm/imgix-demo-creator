@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import axios from 'axios';
 
 export default class ImageCard extends PureComponent {
     constructor(props) {
@@ -7,7 +8,8 @@ export default class ImageCard extends PureComponent {
             url: this.props.image.url,
             inputText: this.props.image.url,
             group: this.props.group,
-            counter: 0
+            counter: 0,
+            contentLength: null
         }
         // inherited props:
         // this.props.imageOptions
@@ -21,6 +23,21 @@ export default class ImageCard extends PureComponent {
     componentDidMount() {
         this.setState({ inputText: this.props.image.url });
     };
+
+    _getImageSize = (image) => {
+        if(image.indexOf('format') > -1 && image.indexOf('auto') > -1) {
+            image += `&fm=webp`
+        };
+        return axios.get(image).then(response => {
+            let contentLength = Math.round(response.headers["content-length"]/1024);
+            this.setState({contentLength: `Content-length: ${contentLength} kb`})
+            // return response.headers["content-length"].toString()
+            return null
+        }).catch((err) => {
+            console.log(err)
+            return "Unable to get size"
+        })
+    }
 
     _renderImage = () => {
         let image = this.props.image.baseUrl
@@ -40,9 +57,9 @@ export default class ImageCard extends PureComponent {
         if (this.props.group.groupOptions.imageOptions.customFunction) {
             image = this.props.image.baseUrl + '?' + this.props.customCodeParams
         }
+        this._getImageSize(image);
         return image;
     }
-
 
 
     render() {
@@ -52,6 +69,7 @@ export default class ImageCard extends PureComponent {
                     <img alt="placeholder-alt" src={this._renderImage()} />
                 </div>
                 <div className="card-info-container">
+                    <p>{this.state.contentLength}</p>
                     <input type="text" className="editableFields" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText}
                         onChange={e => {
                             this.setState({ inputText: e.target.value })
