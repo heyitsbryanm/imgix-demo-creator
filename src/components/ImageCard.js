@@ -34,6 +34,8 @@ export default class ImageCard extends PureComponent {
             // return response.headers["content-length"].toString()
             return null
         }).catch((err) => {
+            console.log('err trying to retrieve image from:')
+            console.log(image)
             console.log(err)
             return "Unable to get size"
         })
