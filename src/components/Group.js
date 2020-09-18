@@ -101,8 +101,6 @@ export default class Group extends PureComponent {
             <div className={`group ${(this.props.group.groupOptions.layoutStyle || 'halfWidth')}`}>
                 <div class={`options-menu ${this.state.hamburger}`} hidden={!this.props.lockedEditing}>
                     <ul>
-                        <li>Move up</li>
-                        <li>Move down</li>
                         <li onClick={e => {
                             let groupClone = _.cloneDeep(this.props.group);
                             groupClone.groupOptions.layoutStyle = 'halfWidth'
@@ -130,7 +128,7 @@ export default class Group extends PureComponent {
                         </li>
                     </ul>
                 </div>
-                <div class={`options-hamburger ${this.state.hamburger}`} onClick={(e) => {
+                <div class={`options-hamburger ${this.state.hamburger}`} hidden={this.props.lockedEditing} onClick={(e) => {
                     if (this.state.hamburger === 'active') {
                         this.setState({ hamburger: '' })
                     } else {
