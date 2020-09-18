@@ -112,18 +112,23 @@ export default class App extends React.Component {
                     <span class="logo__powered__item logo__powered__logo">&nbsp;imgix support team</span>.
                   </div>
                 </div>
+                <div className="pageOptions">
+                  <button className="button" onClick={(e) => {
+                    e.preventDefault();
+                    { this._sharePreview() };
+                  }}>Generate a preview link</button>
+                  <button className={`button danger lockedEditing ${this.state.lockedEditing}`} onClick={(e) => {
+                    this.setState({ lockedEditing: !this.state.lockedEditing })
+                    e.preventDefault();
+                  }}>Lock editing</button>
+                  <button className={`button danger unlockEditing ${this.state.lockedEditing}`} onClick={(e) => {
+                    this.setState({ lockedEditing: !this.state.lockedEditing })
+                    e.preventDefault();
+                  }}>Unlock editing</button>
+                </div>
+                <a href={this.state.sharedUrl} target="_blank" rel="noopener noreferrer" >{this.state.sharedUrl}</a>
+
               </div>
-            </div>
-            <div className="pageOptions">
-              <a href={this.state.sharedUrl} target="_blank" rel="noopener noreferrer" >{this.state.sharedUrl}</a>
-              <button onClick={(e) => {
-                e.preventDefault();
-                { this._sharePreview() };
-              }}>Generate a preview link</button>
-              <input type="checkbox" id="lockedEditing" checked={this.state.lockedEditing} onChange={() => {
-                this.setState({ lockedEditing: !this.state.lockedEditing })
-              }} />
-              <label htmlFor="lockedEditing">Lock editing?</label>
             </div>
           </header>
 
@@ -153,14 +158,58 @@ export default class App extends React.Component {
             </div>
           </section>
 
-          <section className='container'>
+          <section className='container main-content'>
             <div className="page-width">
               <div className="page-width-inner">
                 {this._renderGroups()}
-                <div className="group" hidden={this.state.lockedEditing}>
-                  <button className="addGroup" id="addGroup" onClick={() => {
-                    this._addGroup()
-                  }}>Add group</button>
+                <div className="group placeholder-group" hidden={this.state.lockedEditing}  onClick={() => {
+                      this._addGroup()
+                    }}>
+                  <div>
+                    <div className='placeholder-svg'>
+                      <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Add image</title>
+                        <description>Add image</description>
+                        <path d="M0 0H67V67H0V0Z" />
+                        <path d="M0 8.375V46.0625H16.75H46.0625H50.25V8.375H0ZM46.0625 37.6875L33.5 20.9375L20.5188 37.2687L12.5625 29.3125L4.1875 37.6875V12.5625H46.0625V37.6875Z" fill="white" />
+                        <path d="M12.5625 25.125C14.8752 25.125 16.75 23.2502 16.75 20.9375C16.75 18.6248 14.8752 16.75 12.5625 16.75C10.2498 16.75 8.375 18.6248 8.375 20.9375C8.375 23.2502 10.2498 25.125 12.5625 25.125Z" fill="white" />
+                        <path d="M58.625 54.4375V12.5625H54.4375V50.6688H4.1875V54.4375H58.625Z" fill="white" />
+                        <path d="M62.8125 20.9375V59.0438H12.5625V62.8125H67V20.9375H62.8125Z" fill="white" />
+                        <path d="M0 0V-2H-2V0H0ZM67 0H69V-2H67V0ZM67 67V69H69V67H67ZM0 67H-2V69H0V67ZM0 2H67V-2H0V2ZM65 0V67H69V0H65ZM67 65H0V69H67V65ZM2 67V0H-2V67H2Z" />
+                      </svg>
+                      <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Add image</title>
+                        <description>Add image</description>
+                        <path d="M0 0H67V67H0V0Z" />
+                        <path d="M0 8.375V46.0625H16.75H46.0625H50.25V8.375H0ZM46.0625 37.6875L33.5 20.9375L20.5188 37.2687L12.5625 29.3125L4.1875 37.6875V12.5625H46.0625V37.6875Z" fill="white" />
+                        <path d="M12.5625 25.125C14.8752 25.125 16.75 23.2502 16.75 20.9375C16.75 18.6248 14.8752 16.75 12.5625 16.75C10.2498 16.75 8.375 18.6248 8.375 20.9375C8.375 23.2502 10.2498 25.125 12.5625 25.125Z" fill="white" />
+                        <path d="M58.625 54.4375V12.5625H54.4375V50.6688H4.1875V54.4375H58.625Z" fill="white" />
+                        <path d="M62.8125 20.9375V59.0438H12.5625V62.8125H67V20.9375H62.8125Z" fill="white" />
+                        <path d="M0 0V-2H-2V0H0ZM67 0H69V-2H67V0ZM67 67V69H69V67H67ZM0 67H-2V69H0V67ZM0 2H67V-2H0V2ZM65 0V67H69V0H65ZM67 65H0V69H67V65ZM2 67V0H-2V67H2Z" />
+                      </svg>
+                      <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Add image</title>
+                        <description>Add image</description>
+                        <path d="M0 0H67V67H0V0Z" />
+                        <path d="M0 8.375V46.0625H16.75H46.0625H50.25V8.375H0ZM46.0625 37.6875L33.5 20.9375L20.5188 37.2687L12.5625 29.3125L4.1875 37.6875V12.5625H46.0625V37.6875Z" fill="white" />
+                        <path d="M12.5625 25.125C14.8752 25.125 16.75 23.2502 16.75 20.9375C16.75 18.6248 14.8752 16.75 12.5625 16.75C10.2498 16.75 8.375 18.6248 8.375 20.9375C8.375 23.2502 10.2498 25.125 12.5625 25.125Z" fill="white" />
+                        <path d="M58.625 54.4375V12.5625H54.4375V50.6688H4.1875V54.4375H58.625Z" fill="white" />
+                        <path d="M62.8125 20.9375V59.0438H12.5625V62.8125H67V20.9375H62.8125Z" fill="white" />
+                        <path d="M0 0V-2H-2V0H0ZM67 0H69V-2H67V0ZM67 67V69H69V67H67ZM0 67H-2V69H0V67ZM0 2H67V-2H0V2ZM65 0V67H69V0H65ZM67 65H0V69H67V65ZM2 67V0H-2V67H2Z" />
+                      </svg>
+                      <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Add image</title>
+                        <description>Add image</description>
+                        <path d="M0 0H67V67H0V0Z" />
+                        <path d="M0 8.375V46.0625H16.75H46.0625H50.25V8.375H0ZM46.0625 37.6875L33.5 20.9375L20.5188 37.2687L12.5625 29.3125L4.1875 37.6875V12.5625H46.0625V37.6875Z" fill="white" />
+                        <path d="M12.5625 25.125C14.8752 25.125 16.75 23.2502 16.75 20.9375C16.75 18.6248 14.8752 16.75 12.5625 16.75C10.2498 16.75 8.375 18.6248 8.375 20.9375C8.375 23.2502 10.2498 25.125 12.5625 25.125Z" fill="white" />
+                        <path d="M58.625 54.4375V12.5625H54.4375V50.6688H4.1875V54.4375H58.625Z" fill="white" />
+                        <path d="M62.8125 20.9375V59.0438H12.5625V62.8125H67V20.9375H62.8125Z" fill="white" />
+                        <path d="M0 0V-2H-2V0H0ZM67 0H69V-2H67V0ZM67 67V69H69V67H67ZM0 67H-2V69H0V67ZM0 2H67V-2H0V2ZM65 0V67H69V0H65ZM67 65H0V69H67V65ZM2 67V0H-2V67H2Z" />
+                      </svg>
+                    </div>
+                    <button className="addGroup button" id="addGroup">Add group</button>
+                  </div>
                 </div>
               </div>
             </div>

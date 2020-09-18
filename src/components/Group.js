@@ -13,6 +13,7 @@ export default class Group extends PureComponent {
             imageOptions: this.props.group.groupOptions.imageOptions,
             title: this.props.group.groupOptions.title,
             description: this.props.group.groupOptions.description,
+            hamburger: null
         }
 
         // inherited props
@@ -92,14 +93,67 @@ export default class Group extends PureComponent {
                 })
         }
     }
+
+
     render() {
         return (
 
             <div className={`group ${(this.props.group.groupOptions.layoutStyle || 'halfWidth')}`}>
+                <div class={`options-menu ${this.state.hamburger}`} hidden={!this.props.lockedEditing}>
+                    <ul>
+                        <li>Move up</li>
+                        <li>Move down</li>
+                        <li onClick={e => {
+                            let groupClone = _.cloneDeep(this.props.group);
+                            groupClone.groupOptions.layoutStyle = 'halfWidth'
+                            this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                                this._handleCustomTemplates();
+                            })
+                        }}>Half width</li>
+                        <li onClick={e => {
+                            let groupClone = _.cloneDeep(this.props.group);
+                            groupClone.groupOptions.layoutStyle = 'fullWidth'
+                            this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
+                                this._handleCustomTemplates();
+                            })
+                        }}>Full width</li>
+                        <li>
+                            <select onChange={(e) => {
+                                let groupClone = Object.assign({}, this.props.group);
+                                groupClone.groupOptions.imageOptions.customFunction = e.target.value;
+                                this.props._modifyAppState(this.props.groupIndex, groupClone);
+                                this._handleCustomTemplates()
+                            }}>
+                                <option value={false}>No custom functions</option>
+                                <option value="centerFace">Center Face</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <div class={`options-hamburger ${this.state.hamburger}`} onClick={(e) => {
+                    if (this.state.hamburger === 'active') {
+                        this.setState({ hamburger: '' })
+                    } else {
+                        this.setState({ hamburger: 'active' })
+                    }
+                }}>
+                    <svg className={`options-hamburger_open  ${this.state.hamburger}`} width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                        <title>Hamburger menu</title>
+                        <description>Hamburger menu button</description>
+                        <path d="M30 2H0V6H30V2Z" />
+                        <path d="M30 13H0V17H30V13Z" />
+                        <path d="M30 24H0V28H30V24Z" />
+                    </svg>
+                    <svg className={`options-hamburger_close  ${this.state.hamburger}`} width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 1L1 16L0 15L15 0L16 1Z" />
+                        <path d="M1 0L16 15L15 16L0 1L1 0Z" />
+                    </svg>
+
+                </div>
                 <div class="section_divider"></div>
                 <div className="textContentContainer">
                     <h2 className="groupTitle" hidden={!this.props.lockedEditing}>{this.state.title}</h2>
-                    <h6 hidden={this.props.lockedEditing}>Title</h6>
+                    <h6 hidden={this.props.lockedEditing}>title</h6>
                     <input type="text" hidden={this.props.lockedEditing} className="h2 editableField heading title" value={this.state.title}
                         onChange={(e) => {
                             this._handleTextInputChange('title', e.target.value)
@@ -129,36 +183,23 @@ export default class Group extends PureComponent {
                 <div hidden={this.props.lockedEditing} className="optionsContainer">
 
                     <div>
-                        This div should contain the container's options. Such as:
-          <ul>
-                            <h3>Group options</h3>
+                        <ul>
                             <label htmlFor="setGroupWidth"></label>
-                            <select onChange={e => {
-                                let groupClone = _.cloneDeep(this.props.group);
-                                groupClone.groupOptions.layoutStyle = e.target.value
-                                this.props._modifyAppState(this.props.groupIndex, groupClone, () => {
-                                    this._handleCustomTemplates();
-                                })
-                            }}
-                                value={(this.props.group.groupOptions.layoutStyle || 'halfWidth)')}
-                            >
-                                <option value="fullWidth">Full width</option>
-                                <option value="halfWidth">Half width</option>
-                            </select>
-                            <h3>Bulk parameter editing</h3>
-                            <form>
-                                <label htmlFor="groupParametersValue">Apply parameter set here</label>
-                                <input type="text" id="groupParametersValue" value={this.state.imageOptions.parameterSetValue}
-                                    onChange={e => {
-                                        this.setState({
-                                            imageOptions: {
-                                                parameterSet: this.props.group.groupOptions.imageOptions.parameterSet,
-                                                parameterSetValue: e.target.value
-                                            }
-                                        })
-                                    }}
-                                ></input>
-                                <button type="submit"
+                            <form className="group-parameters">
+                                <div className="area1">
+                                    <label htmlFor="groupParametersValue">Apply parameter set here</label>
+                                    <input type="text" id="groupParametersValue" placeholder="ex: ?w=400&h=500...." value={this.state.imageOptions.parameterSetValue}
+                                        onChange={e => {
+                                            this.setState({
+                                                imageOptions: {
+                                                    parameterSet: this.props.group.groupOptions.imageOptions.parameterSet,
+                                                    parameterSetValue: e.target.value
+                                                }
+                                            })
+                                        }}
+                                    ></input>
+                                </div>
+                                <button className="button button1" type="submit"
                                     onClick={e => {
                                         e.preventDefault();
                                         let parameterSetValue = this.state.imageOptions.parameterSetValue.replace('?', '').trim();
@@ -180,7 +221,7 @@ export default class Group extends PureComponent {
 
                                     }}
                                 >Apply parameters</button>
-                                <button type="submit"
+                                <button className="button button2" type="submit"
                                     onClick={e => {
                                         e.preventDefault();
                                         let parameterSetValue = this.state.imageOptions.parameterSetValue.replace('?', '').trim();
@@ -201,7 +242,7 @@ export default class Group extends PureComponent {
                                         })
                                     }}
                                 >Append parameters</button>
-                                <button type="submit"
+                                <button className="button button3" type="submit"
                                     onClick={e => {
                                         e.preventDefault();
                                         let parameterSetValue = this.state.imageOptions.parameterSetValue.replace('?', '').trim();
@@ -221,15 +262,7 @@ export default class Group extends PureComponent {
                                         })
                                     }}
                                 >Unset group parameters</button>
-                                <select onChange={(e) => {
-                                    let groupClone = Object.assign({}, this.props.group);
-                                    groupClone.groupOptions.imageOptions.customFunction = e.target.value;
-                                    this.props._modifyAppState(this.props.groupIndex, groupClone);
-                                    this._handleCustomTemplates()
-                                }}>
-                                    <option value={false}>No custom functions</option>
-                                    <option value="centerFace">Crop Out Face</option>
-                                </select>
+
                             </form>
                         </ul>
                     </div>
@@ -256,17 +289,16 @@ export default class Group extends PureComponent {
                             <button className="addImage button" onClick={(e) => {
                                 this._addImageCard();
                             }}>Add image</button>
+                            <button className="deleteGroup button danger" id="deleteGroup" onClick={(e) => {
+                                let groupsClone = [...this.props.groups];
+                                groupsClone = groupsClone.filter((x, y) => {
+                                    return this.props.groupIndex != y
+                                })
+                                this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
+                                    this._handleCustomTemplates();
+                                })
+                            }}>Delete group</button>
                         </div>
-                        {/* todo: move this to a function */}
-                        <button className="deleteGroup" id="deleteGroup" onClick={(e) => {
-                            let groupsClone = [...this.props.groups];
-                            groupsClone = groupsClone.filter((x, y) => {
-                                return this.props.groupIndex != y
-                            })
-                            this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
-                                this._handleCustomTemplates();
-                            })
-                        }}>Delete group</button>
                     </div>
                 </div>
             </div>

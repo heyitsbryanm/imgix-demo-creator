@@ -49,6 +49,10 @@
   background: #ff4242;
 }
 
+.danger.button:hover {
+  background: #ff2929;
+}
+
 .noUnderline {
   text-decoration: none;
 }
@@ -76,7 +80,8 @@ h3,
 h4,
 h5,
 h6,
-.editableField.heading {
+.editableField.heading,
+label {
   color: #354b5a;
   font-family: "Roboto Slab", sans-serif;
   font-weight: 400;
@@ -378,6 +383,20 @@ input[type="url"].input--landing {
   background: #22303a;
 }
 
+.pageOptions .lockedEditing.true {
+  display: none;
+}
+
+.pageOptions .unlockEditing.false {
+  display: none;
+}
+
+.pageOptions {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0 10px;
+}
+
 /*------ fold editableFields ------*/
 
 .fold .title.editableField {
@@ -388,6 +407,10 @@ input[type="url"].input--landing {
 
 .card-info-container {
   margin-top: 10px;
+}
+
+.card-info-container button {
+  width: 100%;
 }
 
 .emptyCard svg {
@@ -455,6 +478,14 @@ section {
   padding-top: 24px;
 }
 
+.optionsContainer label {
+  font-size: 16px;
+}
+
+.optionsContainer ul {
+  margin: 0;
+}
+
 .options_header {
   font-weight: 600;
 }
@@ -475,12 +506,10 @@ label {
 
 .fullWidth .images-container {
   grid-gap: 10px 50px;
-
 }
 
 .halfWidth .images-container {
   grid-gap: 10px 20px;
-
 }
 
 .images-container,
@@ -490,6 +519,74 @@ label {
 }
 
 /*========== demoElements ==========*/
+
+/*------ hamburer menu ------*/
+
+.options-hamburger {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  cursor: pointer;
+  fill: #354b5a;
+  z-index: 1;
+}
+
+.options-hamburger:hover svg {
+  fill: #2ecfff;
+}
+
+.options-menu {
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 0px;
+  background: #354b5a;
+  color: white;
+  z-index: 0;
+}
+
+.options-menu.active {
+  display: initial;
+}
+
+.options-menu ul {
+  list-style-type: none;
+  margin-left: 0;
+}
+.options-menu li {
+  padding: 5px 20px;
+  border-top: 1px solid white;
+  cursor: pointer;
+}
+
+.options-menu li:hover {
+  color: #2ecfff;
+}
+
+.options-menu select {
+  padding: 0;
+  height: initial;
+  margin: 0;
+}
+
+.options-hamburger.active {
+  fill: white;
+  padding: 10px;
+  background: #354b5a;
+}
+
+.options-hamburger_open.active {
+  display: none;
+}
+
+.options-hamburger_close {
+  display: none;
+}
+.options-hamburger_close.active {
+  display: initial;
+}
+
+/*------ inputs ------*/
 
 input.demoElement,
 textarea.demoElement {
@@ -522,20 +619,57 @@ input.editableField:hover {
 .textContentContainer input.editableField:focus {
   text-decoration: none;
   border: none;
-  border-bottom: 1px solid gray;
   box-shadow: none;
   outline: none;
 }
+
+
 
 input.editableField {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.main-content input.editableField {
+  background: rgba(34, 48, 58, 0.05);
+}
+
 /*========== groups & containers ==========*/
 
-.container {
+.group.placeholder-group {
+  background: #e8f0f4;
+  text-align: center;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  min-height: 300px;
+  cursor: pointer;
+  opacity: .7
+}
+
+.placeholder-group button {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.placeholder-group:hover {
+  opacity: 1;
+}
+
+.placeholder-group .placeholder-svg {
   display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2,1fr);
+  max-width: 300px;
+  min-width: 250px;
   width: 100%;
+}
+.container.main-content {
+  width: 100%;
+}
+
+.container.main-content .page-width-inner {
+ display: flex;
+ flex-wrap: wrap; 
 }
 
 .group.fullWidth {
@@ -544,12 +678,12 @@ input.editableField {
 
 .group,
 .group.halfWidth {
-  width: 40%;
+  width: 46%;
   display: inline-block;
+  position: relative;
 }
-
-.group.halfWidth:nth-child(2) {
-  margin-left: 10%;
+.group {
+  margin: 0 2%;
 }
 
 .group.halfWidth .images-container {
@@ -566,6 +700,32 @@ input.editableField {
 [hidden],
 input[hidden] {
   display: none;
+}
+
+.group-parameters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "area1 area1 area1"
+    "button1 button2 button3"
+    "area2 area2 area2";
+  gap: 0 15px;
+}
+
+.group-parameters .area1 {
+  grid-area: area1;
+}
+.group-parameters .area2 {
+  grid-area: area2;
+}
+.group-parameters .button1 {
+  grid-area: button1;
+}
+.group-parameters .button2 {
+  grid-area: button2;
+}
+.group-parameters .button3 {
+  grid-area: button3;
 }
 
 /*========== cards ==========*/
