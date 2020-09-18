@@ -127,8 +127,8 @@ export default class App extends React.Component {
                     e.preventDefault();
                   }}>Unlock editing</button>
                 </div>
-                <a href={this.state.sharedUrl} target="_blank" rel="noopener noreferrer" >{this.state.sharedUrl}</a>
-
+                <h6 className="white italic superscript">Note: Preview URL only works with smaller demos with 6 or less images</h6>
+                <a className="white" href={this.state.sharedUrl} target="_blank" rel="noopener noreferrer" >{this.state.sharedUrl}</a>
               </div>
             </div>
           </header>
@@ -163,10 +163,10 @@ export default class App extends React.Component {
             <div className="page-width">
               <div className="page-width-inner">
                 {this._renderGroups()}
-                <div className="group placeholder-group" hidden={this.state.lockedEditing}  onClick={() => {
+                <div className="group placeholder-group" hidden={this.state.lockedEditing} onClick={() => {
 
-                      this._addGroup()
-                    }}>
+                  this._addGroup()
+                }}>
                   <div>
                     <div className='placeholder-svg'>
                       <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">

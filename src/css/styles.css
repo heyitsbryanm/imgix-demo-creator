@@ -64,6 +64,10 @@
 
 /*------ easy color styles ------*/
 
+.superscript {
+  font-size: 11px
+}
+
 .white {
   color: white;
 }
