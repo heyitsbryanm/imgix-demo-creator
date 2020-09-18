@@ -29,7 +29,7 @@ export default class ImageCard extends PureComponent {
             image += `&fm=webp`
         };
         return axios.get(image).then(response => {
-            let contentLength = Math.round(response.headers["content-length"]/1024);
+            let contentLength = Math.round(response.headers["content-length"]/1000);
             this.setState({contentLength: `Content-length: ${contentLength} kb`})
             // return response.headers["content-length"].toString()
             return null
@@ -72,7 +72,7 @@ export default class ImageCard extends PureComponent {
                 </div>
                 <div className="card-info-container">
                     <p>{this.state.contentLength}</p>
-                    <input type="text" className="editableFields" disabled={this.props.lockedEditing} placeholder="Insert image URL here" value={this.state.inputText}
+                    <input type="text" className="editableFields" placeholder="Insert image URL here" value={this.state.inputText}
                         onChange={e => {
                             this.setState({ inputText: e.target.value })
                         }}

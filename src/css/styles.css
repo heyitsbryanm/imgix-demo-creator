@@ -635,7 +635,7 @@ input.editableField {
 
 /*========== groups & containers ==========*/
 
-.group.placeholder-group {
+.group.placeholder-group:not([hidden]) {
   background: #e8f0f4;
   text-align: center;
   display: flex;
