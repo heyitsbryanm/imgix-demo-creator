@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/styles.css'
+import _ from 'lodash';
 
 import Group from './components/Group'
 
@@ -51,7 +52,7 @@ export default class App extends React.Component {
 
   _addGroup = () => {
     let groupIndex = this.state.groups.length - 1;
-    let groups = [...this.state.groups];
+    let groups = _.cloneDeep(this.state.groups);
     let groupObject = Object.assign({}, this.state.groups[groupIndex]);
 
     groups.push(groupObject);
@@ -59,7 +60,7 @@ export default class App extends React.Component {
   }
 
   _modifyAppState = (groupIndex, array, callback) => {
-    let arrayClone = [...this.state.groups];
+    let arrayClone = _.cloneDeep(this.state.groups);
     if (typeof (array.groupOptions) == 'undefined') {
       arrayClone = array;
     } else {
@@ -118,7 +119,7 @@ export default class App extends React.Component {
                     { this._sharePreview() };
                   }}>Generate a preview link</button>
                   <button className={`button danger lockedEditing ${this.state.lockedEditing}`} onClick={(e) => {
-                    this.setState({ lockedEditing: !this.state.lockedEditing })
+                    this.setState({ lockedEditing: !this.state.lockedEditing });
                     e.preventDefault();
                   }}>Lock editing</button>
                   <button className={`button danger unlockEditing ${this.state.lockedEditing}`} onClick={(e) => {
@@ -163,6 +164,7 @@ export default class App extends React.Component {
               <div className="page-width-inner">
                 {this._renderGroups()}
                 <div className="group placeholder-group" hidden={this.state.lockedEditing}  onClick={() => {
+
                       this._addGroup()
                     }}>
                   <div>

@@ -30,7 +30,7 @@ export default class Group extends PureComponent {
 
         array.map(mapx => {
             let index = array.length - 1;
-            let arrayClone = [...array];
+            let arrayClone = _.cloneDeep(array);
             let arrayObject = Object.assign({}, array[index]);
             arrayClone.push(arrayObject);
             counter += 1;
@@ -99,7 +99,7 @@ export default class Group extends PureComponent {
         return (
 
             <div className={`group ${(this.props.group.groupOptions.layoutStyle || 'halfWidth')}`}>
-                <div class={`options-menu ${this.state.hamburger}`} hidden={!this.props.lockedEditing}>
+                <div class={`options-menu ${this.state.hamburger}`} hidden={this.props.lockedEditing}>
                     <ul>
                         <li onClick={e => {
                             let groupClone = _.cloneDeep(this.props.group);

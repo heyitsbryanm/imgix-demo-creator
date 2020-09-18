@@ -553,6 +553,17 @@ label {
 
 /*------ hamburer menu ------*/
 
+.checkbox-trigger {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
 .options-hamburger {
   position: absolute;
   top: 1px;
@@ -562,7 +573,7 @@ label {
   z-index: 1;
 }
 
-.options-hamburger:hover svg {
+.hamburger-container:hover svg {
   fill: #2ecfff;
 }
 
@@ -576,7 +587,7 @@ label {
   z-index: 0;
 }
 
-.options-menu.active {
+.options-menu.active:not([hidden]) {
   display: initial;
 }
 
