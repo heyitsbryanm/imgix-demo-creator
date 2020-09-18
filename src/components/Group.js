@@ -126,6 +126,15 @@ export default class Group extends PureComponent {
                                 <option value="centerFace">Center Face</option>
                             </select>
                         </li>
+                        <li onClick={(e) => {
+                            let groupsClone = [...this.props.groups];
+                            groupsClone = groupsClone.filter((x, y) => {
+                                return this.props.groupIndex != y
+                            })
+                            this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
+                                this._handleCustomTemplates();
+                            })
+                        }} className="red">Delete group</li>
                     </ul>
                 </div>
                 <div class={`options-hamburger ${this.state.hamburger}`} hidden={this.props.lockedEditing} onClick={(e) => {
@@ -269,7 +278,11 @@ export default class Group extends PureComponent {
 
                 <div className="images-container">
                     {this._renderImageCard()}
-                    <div className="image-card card emptyCard" hidden={this.props.lockedEditing}>
+                    <div className="image-card card emptyCard" hidden={this.props.lockedEditing}
+                        onClick={(e) => {
+                            this._addImageCard();
+                        }}
+                    >
                         <div className="svgContainer">
                             <svg viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <title>Add image</title>
@@ -284,18 +297,7 @@ export default class Group extends PureComponent {
                         </div>
 
                         <div className="card-info-container center">
-                            <button className="addImage button" onClick={(e) => {
-                                this._addImageCard();
-                            }}>Add image</button>
-                            <button className="deleteGroup button danger" id="deleteGroup" onClick={(e) => {
-                                let groupsClone = [...this.props.groups];
-                                groupsClone = groupsClone.filter((x, y) => {
-                                    return this.props.groupIndex != y
-                                })
-                                this.props._modifyAppState(this.props.groupIndex, groupsClone, () => {
-                                    this._handleCustomTemplates();
-                                })
-                            }}>Delete group</button>
+                            <button className="addImage button">Add image</button>
                         </div>
                     </div>
                 </div>

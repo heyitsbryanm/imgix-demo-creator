@@ -1,5 +1,10 @@
 /*-------- ez/easy layout styles --------*/
 
+/* reset */
+* {
+  transition: none;
+}
+
 .absolute {
   position: absolute;
 }
@@ -179,6 +184,23 @@ h1 {
 
 .imageActions .imageActions-deleteImage {
   width: 70%;
+}
+
+.imageActions .hover-red:hover {
+  background: red;
+}
+
+.imageActions button:hover, .imageActions a.button:hover {
+  transition: none;
+  background: #00c0fa;
+}
+
+div .button {
+  transition: none;
+}
+
+div .button:hover {
+  transition: none;
 }
 
 .imageActions button,
@@ -411,6 +433,15 @@ input[type="url"].input--landing {
 
 .card-info-container button {
   width: 100%;
+}
+
+.emptyCard {
+  cursor: pointer;
+  opacity: .7;
+}
+
+.emptyCard:hover {
+  opacity: 1;
 }
 
 .emptyCard svg {
@@ -651,8 +682,8 @@ input.editableField {
   vertical-align: middle;
 }
 
-.placeholder-group:hover {
-  opacity: 1;
+div .group.placeholder-group:hover {
+  opacity: 1 !important;
 }
 
 .placeholder-group .placeholder-svg {

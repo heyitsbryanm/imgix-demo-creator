@@ -127,7 +127,7 @@ export default class ImageCard extends PureComponent {
                             </svg>
 
                         </button>
-                        <button type="submit" key={`buttonId${this.props.groupIndex + this.props.imageIndex}`} hidden={this.props.lockedEditing} onClick={e => {
+                        <button type="submit" className="hover-red" key={`buttonId${this.props.groupIndex + this.props.imageIndex}`} hidden={this.props.lockedEditing} onClick={e => {
                             let groupClone = { ...this.props.group };
                             groupClone.images = groupClone.images.filter((x, y) => {
                                 return y != this.props.imageIndex
