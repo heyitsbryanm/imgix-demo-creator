@@ -71,7 +71,8 @@ export default class ImageCard extends PureComponent {
                     <img alt="placeholder-alt" src={this._renderImage()} />
                 </div>
                 <div className="card-info-container">
-                    <p>{this.state.contentLength}</p>
+                    {this.state.contentLength}
+                    <p><a href={`https://sandbox.imgix.com/view?url=${encodeURIComponent(this._renderImage())}`} hidden={!this.props.lockedEditing}>Open in sandbox</a></p>
                     <input type="text" className="editableFields" placeholder="Insert image URL here" value={this.state.inputText}
                         onChange={e => {
                             this.setState({ inputText: e.target.value })
